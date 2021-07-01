@@ -60,11 +60,62 @@ std::string student_c::getMajor() { return major; }
 int student_c::getGradYear() { return gradYear; }
 float student_c::getGPA() { return GPA; }
 
-void student_c::searchCourses() {
-	std::cout << "Student search courses has been called.\n\n";
+void student_c::searchCourses(const char* dir) { /* https://www.quora.com/How-do-I-split-a-string-by-space-into-an-array-in-c++ */
+	
+	int choice = 0;
+
+	std::cout << "1: Search courses by CID:\n";
+	std::cout << "2: Show all courses:\n";
+	std::cin >> choice;
+
+	switch (choice) {
+		case 1: {
+			std::vector<std::string> courseID;
+			std::string input;
+
+			int invalid = 0;
+
+			do {
+				invalid = 0;
+				std::cin.ignore();
+				std::cout << "Please enter the 4-digit course IDs separated by spaces: ";
+				getline(std::cin, input);
+				std::cout << "\n";
+
+				std::istringstream iss(input);
+				for (std::string input; iss >> input; )
+					courseID.push_back(input);
+
+				for (int i = 0; i < courseID.size(); i++) {
+					if (courseID[i].length() != 4) {
+						invalid = 1;
+						break;
+					}
+				}
+				if (invalid) {
+					std::cout << "\nPlease enter valid course IDs.\n\n";
+					for (int i = 0; i <= courseID.size(); i++)
+						courseID.pop_back();
+				}
+			} while (invalid);
+
+			std::cout << "\n";
+
+			for (int i = 0; i < courseID.size(); i++)
+				printCourse(dir, std::stoi(courseID[i]));
+			break;
+		}
+		case 2: {
+			printTable(dir, "COURSE");
+			break;
+		}
+		default: {
+
+		}
+	}
 }
 
-void student_c::addDropCourses() {
+void student_c::addDropCourse() {
 	std::cout << "Student add/drop courses has been called.\n\n";
 }
 
