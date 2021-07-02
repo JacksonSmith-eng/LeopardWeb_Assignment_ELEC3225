@@ -1,15 +1,12 @@
 /*
-When program begins, some hardcoded users should populate db
-When program ends, delete everything
+For testing:
+ - When program begins, some hardcoded users should populate db
+ - When program ends, delete everything
 
-Replace all instances of the std::list with SQL
- - deleteUser.cpp: complete redo
- - newUser.cpp: list is passed as argument, change to DB
- - user.cpp: add to functions
-
-Create table for courses w/ enrolled students
-
- Separate userDB and courseDB
+Functions that need to check if user/course is already in DB:
+ - admin_c::addRemoveCourses()
+ - admin_c::addRemoveUsers()
+ - student_c::addDropCourse()
  */
 
 #include "user.h"
@@ -37,11 +34,13 @@ int main() {
 	createTable(dir, "INSTRUCTOR");
 	createTable(dir, "ADMIN");
 	createTable(dir, "COURSE");
+	createTable(dir, "ROSTER");
 
 	clearTable(dir, "STUDENT");
 	clearTable(dir, "INSTRUCTOR");
 	clearTable(dir, "ADMIN");
 	clearTable(dir, "COURSE");
+	clearTable(dir, "ROSTER");
 
 	loadInData(dir, numStudent, numInstructor, numAdmin);
 
@@ -49,6 +48,7 @@ int main() {
 	printTable(dir, "INSTRUCTOR");
 	printTable(dir, "ADMIN");
 	printTable(dir, "COURSE");
+	printTable(dir, "ROSTER");
 	// Comment out when program is implemented: END
 	while (run_program) {
 		userType = 0;
@@ -57,13 +57,15 @@ int main() {
 		std::cout << "1: Sign in\n";
 		std::cout << "0: End program\n";
 		std::cin >> run_program;
-		std::cout << std::endl;
+		//run_program = 1; // * * * TEST * * *
+		std::cout << "\n";
 		switch (run_program) {
 			case 1: { // Sign into account
 				std::string str;
 				do {
 					std::cout << "Please enter your 4-digit user ID: ";
 					std::cin >> userID;
+					//userID = 1000; // * * * TEST * * *
 					std::cout << "\n";
 					str = std::to_string(userID);
 					if (str.length() != 4)
@@ -72,13 +74,11 @@ int main() {
 				if ((numStudent == 0) & (numInstructor == 0) & (numAdmin == 0))
 					std::cout << "Sorry, the database is empty\n\n";
 				else {
-					std::cout << "MAIN: sign in user\n";
 					signInUser(dir, userID, userType, signedInStudent, signedInInstructor, signedInAdmin);
 
 					if (!userType) {
 						std::cout << "Sorry, we couldn't find you in the database.\n";
 					}
-					std::cout << "\n";
 				}
 				break;
 			}
@@ -95,16 +95,16 @@ int main() {
 				} while (run_program != 0 && run_program != 1);
 				break;
 			}
-			default: { std::cout << "Please enter a valid input.\n\n"; }
+			default: { std::cout << "Please enter a valid choice.\n\n"; }
 		}
 			/*********************************************************/
 		if (run_program) {
 			switch (userType) { // Go to user home
-				case 1: { studentHome(signedInStudent); break; }
-				case 2: { instructorHome(signedInInstructor); break; }
+				case 1: { studentHome(dir, signedInStudent); break; }
+				case 2: { instructorHome(dir, signedInInstructor); break; }
 				case 3: { adminHome(dir, MAXSTUDENT, MAXINSTRUCTOR, MAXADMIN, signedInStudent, signedInInstructor, signedInAdmin, numStudent, numInstructor, numAdmin); break; }
 				case 0: { break; }
-				default: { std::cout << "Please enter a valid input.\n"; }
+				default: { std::cout << "Please enter a valid choice.\n"; }
 			}
 		}
 	}
@@ -115,12 +115,11 @@ int main() {
 	printTable(dir, "INSTRUCTOR");
 	printTable(dir, "ADMIN");
 	printTable(dir, "COURSE");
+	printTable(dir, "ROSTER");
 	// Comment out when program is implemented: END
 	//delete signedInStudent;
 	//delete signedInInstructor;
 	//delete signedInAdmin;
-
-	std::cout << "\n";
 
 	return 0;
 }
