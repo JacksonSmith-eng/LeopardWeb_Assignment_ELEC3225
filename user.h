@@ -85,8 +85,8 @@ class instructor_c : public user_c {
 		std::string getDepartment();
 		std::string getDegree();
 
-		void searchCourses();
-		void printRosters();
+		void searchCourses(const char*);
+		void printRosters(const char*);
 
 		void printAll();
 };
