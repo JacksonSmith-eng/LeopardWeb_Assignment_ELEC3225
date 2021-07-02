@@ -1,5 +1,6 @@
 #include "user.h"
 
+// Function written by group
 extern int createDB(const char* s) {
 	
 	sqlite3* DB;
@@ -11,6 +12,7 @@ extern int createDB(const char* s) {
 	return 0;
 }
 
+// Function written by group
 extern int createTable(const char* s, std::string tableType) {
 	
 	sqlite3* DB;
@@ -83,6 +85,7 @@ extern int createTable(const char* s, std::string tableType) {
 	return 0;
 }
 
+// Function written by group
 extern int clearTable(const char* s, std::string tableType) {
 	
 	sqlite3* DB;
@@ -114,6 +117,7 @@ extern int clearTable(const char* s, std::string tableType) {
 	return 0;
 }
 
+// Function written by group
 extern int printTable(const char* s, std::string tableType) {
 	
 	sqlite3* DB;
@@ -142,7 +146,8 @@ extern int printTable(const char* s, std::string tableType) {
 	return 0;
 }
 
-extern int printCourse(const char* s, int courseID) {
+// Function written by Jackson Smith
+extern int printCourse(const char* s, int courseID) { 
 	
 	sqlite3* DB;
 	std::string query;
@@ -156,6 +161,7 @@ extern int printCourse(const char* s, int courseID) {
 	return 0;
 }
 
+// Function written by Jackson Smith
 extern int printRoster(const char* s, int userID) {
 	
 	sqlite3* DB;
@@ -177,7 +183,8 @@ extern int printRoster(const char* s, int userID) {
 	return 0;
 }
 
-extern int loadInData(const char* s, int& numStudent, int& numInstructor, int& numAdmin) {
+// Function written by group
+extern int loadInData(const char* s, int& numStudent, int& numInstructor, int& numAdmin) { 
 	
 	sqlite3* DB;
 	char* messageError;
@@ -239,6 +246,7 @@ extern int loadInData(const char* s, int& numStudent, int& numInstructor, int& n
 	return 0;
 }
 
+// Functions written by group
 extern int insertUser(const char* s, int userID, std::string firstName, std::string lastName, std::string major, int gradYear, float GPA) { // Student
 	
 	sqlite3* DB;
@@ -337,6 +345,7 @@ extern int insertUser(const char* s, int userID, std::string firstName, std::str
 	return 0;
 }
 
+// Function written by group
 extern int signInUser(const char* s, int userID, int& userType, student_c* signedInStudent, instructor_c* signedInInstructor, admin_c* signedInAdmin) {
 	
 	sqlite3* DB;
@@ -393,6 +402,7 @@ extern int signInUser(const char* s, int userID, int& userType, student_c* signe
 	return 0;
 }
 
+// Function written by Jackson Smith
 extern int addStudent(const char* s, int userID, int courseID) {
 	
 	sqlite3* DB;
@@ -456,6 +466,7 @@ extern int updateData(const char* s) {
 	return 0;
 }
 
+// Function written by group
 /* argc: holds the number of results, azColName: holds each column returned in array, argv: holds each value in array */
 extern int callback_printData(void* NotUsed, int argc, char** argv, char** azColName) {
 	
@@ -468,6 +479,7 @@ extern int callback_printData(void* NotUsed, int argc, char** argv, char** azCol
 	return 0;
 }
 
+// Function written by group
 extern int callback_getData(void* data, int argc, char** argv, char** azColName) {
 	
 	if (argc == 0)    //nothing in the row; shouldn’t happen
