@@ -4,7 +4,6 @@ extern int createDB(const char* s) {
 	
 	sqlite3* DB;
 	int exit = 0;
-
 	exit = sqlite3_open(s, &DB);
 
 	sqlite3_close(DB);
@@ -15,8 +14,8 @@ extern int createDB(const char* s) {
 extern int createTable(const char* s, std::string tableType) {
 	
 	sqlite3* DB;
-
 	std::string table;
+
 	if (tableType == "STUDENT") {
 		table = "CREATE TABLE STUDENT("
 			"UID INTEGER PRIMARY KEY, "
@@ -107,10 +106,9 @@ extern int clearTable(const char* s, std::string tableType) {
 extern int printTable(const char* s, std::string tableType) {
 	
 	sqlite3* DB;
-
 	int exit = sqlite3_open(s, &DB);
-
 	std::string query;
+
 	if (tableType == "STUDENT") {
 		query = "SELECT * FROM STUDENT;";
 	}
@@ -125,6 +123,20 @@ extern int printTable(const char* s, std::string tableType) {
 	}
 
 	/* An open database, SQL to be evaluated, callbackPrint function, 1st argument to callbackPrint, Error msg written here */
+	sqlite3_exec(DB, query.c_str(), callback_print, NULL, NULL);
+
+	return 0;
+}
+
+extern int printCourse(const char* s, int courseID) {
+	
+	sqlite3* DB;
+	std::string query;
+	int exit = sqlite3_open(s, &DB);
+
+	query = "SELECT * FROM COURSE WHERE CID = ";
+	query += std::to_string(courseID);
+	query += ";";
 	sqlite3_exec(DB, query.c_str(), callback_print, NULL, NULL);
 
 	return 0;
@@ -145,14 +157,14 @@ extern int loadInData(const char* s, int& numStudent, int& numInstructor, int& n
 		"INSERT INTO INSTRUCTOR VALUES (2001, 'Gary', 'Leung', 'Professor', 'ENG', 'PHD');"
 		"INSERT INTO ADMIN VALUES(3000, 'Frank', 'Frankie', 'VP', 'Dobbs 202');"
 		"INSERT INTO COURSE VALUES(4000, 'Applied Programming Concepts', 'ELEC', '8-9:50am', 'M T R', 'Summer', 2021, 4);"
-		"INSERT INTO COURSE VALUES(4000, 'Signals and Systems', 'ELEC', '10-11:50am', 'T R', 'Summer', 2021, 4);"
-		"INSERT INTO COURSE VALUES(4000, 'Computer Networks for Engineers', 'ELEC', '8-9:15am', 'W F', 'Summer', 2021, 4);"
-		"INSERT INTO COURSE VALUES(4001, 'Advanced Digital Circuit Design', 'ELEC', '12:30-1:50pm', 'W F', 'Summer', 2021, 4);"
+		"INSERT INTO COURSE VALUES(4001, 'Signals and Systems', 'ELEC', '10-11:50am', 'T R', 'Summer', 2021, 4);"
+		"INSERT INTO COURSE VALUES(4002, 'Computer Networks for Engineers', 'ELEC', '8-9:15am', 'W F', 'Summer', 2021, 4);"
+		"INSERT INTO COURSE VALUES(4003, 'Advanced Digital Circuit Design', 'ELEC', '12:30-1:50pm', 'W F', 'Summer', 2021, 4);"
 	);
 
 	exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messageError);
 	if (exit != SQLITE_OK) {
-		std::cerr << "Error Inserttttttttttttttt\n";
+		std::cerr << "Error Insert\n";
 		sqlite3_free(messageError);
 	}
 	else {
@@ -275,9 +287,7 @@ extern int signInUser(const char* s, int userID, int& userType, student_c* signe
 			query = "SELECT * FROM STUDENT WHERE UID = ";
 			query += std::to_string(userID);
 			query += ";";
-			std::cout << "Before student sqlite_exec()\n";
-			exit = sqlite3_exec(DB, query.c_str(), callback_newUser, &container, NULL);
-			std::cout << "After student sqlite_exec()\n";
+			sqlite3_exec(DB, query.c_str(), callback_newUser, &container, NULL);
 			if (container.size()) {
 				if (container[0] == std::to_string(userID)) {
 					signedInStudent->setAll(std::stoi(container[0]), container[1], container[2], container[3], std::stoi(container[4]), std::stof(container[5]));
@@ -290,9 +300,7 @@ extern int signInUser(const char* s, int userID, int& userType, student_c* signe
 			query = "SELECT * FROM INSTRUCTOR WHERE UID = ";
 			query += std::to_string(userID);
 			query += ";";
-			std::cout << "Before instructor sqlite_exec()\n";
-			exit = sqlite3_exec(DB, query.c_str(), callback_newUser, &container, NULL);
-			std::cout << "After instructor sqlite_exec()\n";
+			sqlite3_exec(DB, query.c_str(), callback_newUser, &container, NULL);
 			if (container.size()) {
 				if (container[0] == std::to_string(userID)) {
 					signedInInstructor->setAll(std::stoi(container[0]), container[1], container[2], container[3], container[4], container[5]);
@@ -305,9 +313,7 @@ extern int signInUser(const char* s, int userID, int& userType, student_c* signe
 			query = "SELECT * FROM ADMIN WHERE UID = ";
 			query += std::to_string(userID);
 			query += ";";
-			std::cout << "Before admin sqlite_exec()\n";
-			exit = sqlite3_exec(DB, query.c_str(), callback_newUser, &container, NULL);
-			std::cout << "After admin sqlite_exec()\n";
+			sqlite3_exec(DB, query.c_str(), callback_newUser, &container, NULL);
 			if (container.size()) {
 				if (container[0] == std::to_string(userID)) {
 					signedInAdmin->setAll(std::stoi(container[0]), container[1], container[2], container[3], container[4]);
@@ -355,7 +361,7 @@ extern int callback_print(void* NotUsed, int argc, char** argv, char** azColName
 
 extern int callback_newUser(void* data, int argc, char** argv, char** azColName) {
 	
-	if (argc == 0)    //nothing in the row; shouldn’t happen
+	if (argc == 0)    //nothing in the row; shouldnâ€™t happen
 		return -1;
 
 	auto& container = *static_cast<std::vector<std::string>*>(data);         //create vector
