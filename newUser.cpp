@@ -1,5 +1,6 @@
 #include "user.h"
 
+// Function written by group
 /////////////////////////////////////////////////////
 // * * * * * * * * * * STUDENT * * * * * * * * * * //
 /////////////////////////////////////////////////////
@@ -38,7 +39,7 @@ void newStudent(const char* dir) {
 	//return new student_c(userID, firstName, lastName, major, gradYear, 0.00);
 }
 
-
+// Function written by group
 ////////////////////////////////////////////////////////
 // * * * * * * * * * * INSTRUCTOR * * * * * * * * * * //
 ////////////////////////////////////////////////////////
@@ -80,8 +81,7 @@ void newInstructor(const char* dir) {
 	//return new instructor_c(userID, firstName, lastName, title, department, degree);
 }
 
-
-
+// Function written by group
 ///////////////////////////////////////////////////
 // * * * * * * * * * * ADMIN * * * * * * * * * * //
 ///////////////////////////////////////////////////
