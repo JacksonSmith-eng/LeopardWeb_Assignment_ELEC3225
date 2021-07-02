@@ -2,7 +2,6 @@
 For testing:
  - When program begins, some hardcoded users should populate db
  - When program ends, delete everything
-
 Functions that need to check if user/course is already in DB:
  - admin_c::addRemoveCourses()
  - admin_c::addRemoveUsers()

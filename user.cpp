@@ -227,12 +227,71 @@ std::string instructor_c::getTitle() { return title; }
 std::string instructor_c::getDepartment() { return department; }
 std::string instructor_c::getDegree() { return degree; }
 
-void instructor_c::searchCourses() {
-	std::cout << "Instructor search has been called.\n\n";
+void instructor_c::searchCourses(const char* dir) { /* https://www.quora.com/How-do-I-split-a-string-by-space-into-an-array-in-c++ */
+
+		int choice = 3;
+
+		while (choice) {
+			std::cout << " * * * Course Search * * * \n";
+			std::cout << "1: Search courses by CID\n";
+			std::cout << "2: Show all courses\n";
+			std::cout << "0: Return to Home\n";
+			std::cin >> choice;
+			std::cout << "\n";
+
+			switch (choice) {
+			case 1: {
+				std::vector<std::string> courseID;
+				std::string input;
+
+				int invalid = 0;
+
+				do {
+					invalid = 0;
+					std::cin.ignore();
+					std::cout << "Please enter the 4-digit course IDs separated by spaces: ";
+					getline(std::cin, input);
+					std::cout << "\n";
+
+					std::istringstream iss(input);
+					for (std::string input; iss >> input; )
+						courseID.push_back(input);
+
+					for (int i = 0; i < courseID.size(); i++) {
+						if (courseID[i].length() != 4) {
+							invalid = 1;
+							break;
+						}
+					}
+					if (invalid) {
+						std::cout << "\nPlease enter valid course IDs.\n\n";
+						for (int i = 0; i <= courseID.size(); i++)
+							courseID.pop_back();
+					}
+				} while (invalid);
+
+				std::cout << "\n";
+
+				for (int i = 0; i < courseID.size(); i++)
+					printCourse(dir, std::stoi(courseID[i]));
+				break;
+			}
+			case 2: {
+				printTable(dir, "COURSE");
+				break;
+			}
+			case 0:
+				break;
+			default: {
+				std::cout << "\nPlease enter a valid choice.\n\n";
+			}
+			}
+		}
+	}
 }
 
-void instructor_c::printRosters() {
-	std::cout << "Instructor search rosters has been called.\n\n";
+void instructor_c::printRosters(const char* dir) {
+	printRoster(dir, ID);
 }
 
 void instructor_c::printAll() {
