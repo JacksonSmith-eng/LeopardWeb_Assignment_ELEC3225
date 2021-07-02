@@ -3,7 +3,6 @@
 //////////////////////////////////////////////////
 // * * * * * * * * * * USER * * * * * * * * * * //
 //////////////////////////////////////////////////
-// User functions written by group
 user_c::user_c(int ID, std::string firstName, std::string lastName) {
 	this->ID = ID;
 	this->firstName = firstName;
@@ -35,7 +34,6 @@ void user_c::printAll() {
 /////////////////////////////////////////////////////
 // * * * * * * * * * * STUDENT * * * * * * * * * * //
 /////////////////////////////////////////////////////
-// Student functions written by Jackson Smith
 student_c::student_c(int ID, std::string firstName, std::string lastName, std::string major, int gradYear, float GPA) : user_c(ID, firstName, lastName) {
 	this->ID = ID;
 	this->firstName = firstName;
@@ -63,7 +61,7 @@ int student_c::getGradYear() { return gradYear; }
 float student_c::getGPA() { return GPA; }
 
 void student_c::searchCourses(const char* dir) { /* https://www.quora.com/How-do-I-split-a-string-by-space-into-an-array-in-c++ */
-	
+
 	int choice = 3;
 
 	while (choice) {
@@ -75,57 +73,57 @@ void student_c::searchCourses(const char* dir) { /* https://www.quora.com/How-do
 		std::cout << "\n";
 
 		switch (choice) {
-			case 1: {
-				std::vector<std::string> courseID;
-				std::string input;
+		case 1: {
+			std::vector<std::string> courseID;
+			std::string input;
 
-				int invalid = 0;
+			int invalid = 0;
 
-				do {
-					invalid = 0;
-					std::cin.ignore();
-					std::cout << "Please enter the 4-digit course IDs separated by spaces: ";
-					getline(std::cin, input);
-					std::cout << "\n";
-
-					std::istringstream iss(input);
-					for (std::string input; iss >> input; )
-						courseID.push_back(input);
-
-					for (int i = 0; i < courseID.size(); i++) {
-						if (courseID[i].length() != 4) {
-							invalid = 1;
-							break;
-						}
-					}
-					if (invalid) {
-						std::cout << "\nPlease enter valid course IDs.\n\n";
-						for (int i = 0; i <= courseID.size(); i++)
-							courseID.pop_back();
-					}
-				} while (invalid);
-
+			do {
+				invalid = 0;
+				std::cin.ignore();
+				std::cout << "Please enter the 4-digit course IDs separated by spaces: ";
+				getline(std::cin, input);
 				std::cout << "\n";
 
-				for (int i = 0; i < courseID.size(); i++)
-					printCourse(dir, std::stoi(courseID[i]));
-				break;
-			}
-			case 2: {
-				printTable(dir, "COURSE");
-				break;
-			}
-			case 0:
-				break;
-			default: {
-				std::cout << "\nPlease enter a valid choice.\n\n";
-			}
+				std::istringstream iss(input);
+				for (std::string input; iss >> input; )
+					courseID.push_back(input);
+
+				for (int i = 0; i < courseID.size(); i++) {
+					if (courseID[i].length() != 4) {
+						invalid = 1;
+						break;
+					}
+				}
+				if (invalid) {
+					std::cout << "\nPlease enter valid course IDs.\n\n";
+					for (int i = 0; i <= courseID.size(); i++)
+						courseID.pop_back();
+				}
+			} while (invalid);
+
+			std::cout << "\n";
+
+			for (int i = 0; i < courseID.size(); i++)
+				printCourse(dir, std::stoi(courseID[i]));
+			break;
+		}
+		case 2: {
+			printTable(dir, "COURSE");
+			break;
+		}
+		case 0:
+			break;
+		default: {
+			std::cout << "\nPlease enter a valid choice.\n\n";
+		}
 		}
 	}
 }
 
 void student_c::addDropCourse(const char* dir) {
-	
+
 	int choice = 5, courseID = 0;
 	std::string str;
 
@@ -140,47 +138,47 @@ void student_c::addDropCourse(const char* dir) {
 		std::cout << "\n";
 
 		switch (choice) {
-			case 1: {
-				searchCourses(dir);
-				break;
-			}
-			case 2: {
-				printRoster(dir, ID);
-				break;
-			}
-			case 3: {
-				do {
-					std::cout << "Please enter the 4-digit course ID: ";
-					std::cin >> courseID;
-					std::cout << "\n";
-					str = std::to_string(courseID);
-					if (str.length() != 4)
-						std::cout << "Please enter a valid user ID.\n\n";
-				} while (str.length() != 4);
+		case 1: {
+			searchCourses(dir);
+			break;
+		}
+		case 2: {
+			printRoster(dir, ID);
+			break;
+		}
+		case 3: {
+			do {
+				std::cout << "Please enter the 4-digit course ID: ";
+				std::cin >> courseID;
+				std::cout << "\n";
+				str = std::to_string(courseID);
+				if (str.length() != 4)
+					std::cout << "Please enter a valid user ID.\n\n";
+			} while (str.length() != 4);
 
-				addStudent(dir, ID, courseID);
+			addStudent(dir, ID, courseID);
 
-				break;
-			}
-			case 4: {
-				do {
-					std::cout << "Please enter the 4-digit course ID: ";
-					std::cin >> courseID;
-					std::cout << "\n";
-					str = std::to_string(courseID);
-					if (str.length() != 4)
-						std::cout << "Please enter a valid user ID.\n\n";
-				} while (str.length() != 4);
+			break;
+		}
+		case 4: {
+			do {
+				std::cout << "Please enter the 4-digit course ID: ";
+				std::cin >> courseID;
+				std::cout << "\n";
+				str = std::to_string(courseID);
+				if (str.length() != 4)
+					std::cout << "Please enter a valid user ID.\n\n";
+			} while (str.length() != 4);
 
-				dropStudent(dir, ID, courseID);
+			dropStudent(dir, ID, courseID);
 
-				break;
-			}
-			case 0:
-				break;
-			default: {
-				std::cout << "\nPlease enter valid choice.\n\n";
-			}
+			break;
+		}
+		case 0:
+			break;
+		default: {
+			std::cout << "\nPlease enter valid choice.\n\n";
+		}
 		}
 	}
 }
@@ -271,12 +269,53 @@ void admin_c::setOffice(std::string office) { this->office = office; }
 std::string admin_c::getTitle() { return title; }
 std::string admin_c::getOffice() { return office; }
 
-void admin_c::addRemoveCourses() {
-	std::cout << "Admin add/drop courses has been called.\n\n";
+void admin_c::addRemoveCourses(const char* dir) {
+
+	int choice = 3, courseID = 0;
+	std::string str;
+
+	while (choice) {
+		std::cout << " * * * Add/Drop Course * * * \n";
+		std::cout << "1: Add a course\n";
+		std::cout << "2: Drop a course\n";
+		std::cout << "0: Return to Home\n";
+		std::cin >> choice;
+		std::cout << "\n";
+
+		switch (choice) {
+		case 1: {
+			do {
+				std::cout << "Please enter the 4-digit course ID: ";
+				std::cin >> courseID;
+				std::cout << "\n";
+			} while (str.length() != 4);
+
+			addCourse(dir,courseID);
+
+			break;
+		}
+		case 2: {
+			do {
+				std::cout << "Please enter the 4-digit course ID: ";
+				std::cin >> courseID;
+				std::cout << "\n";
+			} while (str.length() != 4);
+
+			dropCourse(dir, courseID);
+
+			break;
+		}
+		case 0:
+			break;
+		default: {
+			std::cout << "\nPlease enter valid choice.\n\n";
+		}
+		}
+	}
 }
 
 void admin_c::addRemoveUsers(const char* dir, const int& MAXSTUDENT, const int& MAXINSTRUCTOR, const int& MAXADMIN, student_c* signedInStudent, instructor_c* signedInInstructor, admin_c* signedInAdmin, int& numStudent, int& numInstructor, int& numAdmin) {
-	
+
 	int userType = 0, choice = 4;
 
 	while (choice) {
@@ -288,78 +327,128 @@ void admin_c::addRemoveUsers(const char* dir, const int& MAXSTUDENT, const int& 
 		std::cin >> choice;
 		std::cout << "\n";
 		switch (choice) {
+		case 1: {
+			// * * * MUST BE IMPLEMENTED * * *
+		}
+		case 2: {
+			std::cout << "Enter account information: \n";
+			std::cout << "1: Student\n";
+			std::cout << "2: Instructor\n";
+			std::cout << "3: Admin\n";
+			std::cin >> userType;
+			std::cout << "\n";
+
+			switch (userType) {
 			case 1: {
-				// * * * MUST BE IMPLEMENTED * * *
+				if (numStudent >= MAXSTUDENT) {
+					std::cout << "Sorry, our student database is currently at its maximum.\n\n";
+					userType = 0;
+				}
+				else {
+					newStudent(dir);
+					numStudent++;
+				}
+				break;
 			}
 			case 2: {
-				std::cout << "Enter account information: \n";
-				std::cout << "1: Student\n";
-				std::cout << "2: Instructor\n";
-				std::cout << "3: Admin\n";
-				std::cin >> userType;
-				std::cout << "\n";
-
-				switch (userType) {
-					case 1: {
-						if (numStudent >= MAXSTUDENT) {
-							std::cout << "Sorry, our student database is currently at its maximum.\n\n";
-							userType = 0;
-						}
-						else {
-							newStudent(dir);
-							numStudent++;
-						}
-						break;
-					}
-					case 2: {
-						if (numInstructor >= MAXINSTRUCTOR) {
-							std::cout << "Sorry, our instructor database is currently at its maximum.\n\n";
-							userType = 0;
-						}
-						else {
-							newInstructor(dir);
-							numInstructor++;
-						}
-						break;
-					}
-					case 3: {
-						if (numAdmin >= MAXADMIN) {
-							std::cout << "Sorry, our admin database is currently at its maximum.\n\n";
-							userType = 0;
-						}
-						else {
-							newAdmin(dir);
-							numAdmin++;
-						}
-						break;
-					}
-					default:
-						std::cout << "Please enter a valid input.\n";
+				if (numInstructor >= MAXINSTRUCTOR) {
+					std::cout << "Sorry, our instructor database is currently at its maximum.\n\n";
+					userType = 0;
 				}
+				else {
+					newInstructor(dir);
+					numInstructor++;
+				}
+				break;
 			}
 			case 3: {
-				// * * * MUST BE IMPLEMENTED * * *
+				if (numAdmin >= MAXADMIN) {
+					std::cout << "Sorry, our admin database is currently at its maximum.\n\n";
+					userType = 0;
+				}
+				else {
+					newAdmin(dir);
+					numAdmin++;
+				}
+				break;
 			}
-			default: 
+			default:
 				std::cout << "Please enter a valid input.\n";
+			}
+		}
+		case 3: {
+			// * * * MUST BE IMPLEMENTED * * *
+		}
+		default:
+			std::cout << "Please enter a valid input.\n";
 		}
 	}
 }
 
-void admin_c::addDropStudents() {
-	std::cout << "Admin add/drop students has been called.\n\n";
+void admin_c::addDropStudents(const char* dir) {
+
+	int choice = 5, courseID = 0;
+	std::string str;
+
+	while (choice) {
+		std::cout << " * * * Add/Drop Student * * * \n";
+		std::cout << "1: Add a Student\n";
+		std::cout << "2: Drop a Student\n";
+		std::cout << "0: Return to Home\n";
+		std::cin >> choice;
+		std::cout << "\n";
+
+		switch (choice) {
+		case 1: {
+			do {
+				std::cout << "Please enter the 4-digit course ID: ";
+				std::cin >> ID;
+				std::cout << "\n";
+				str = std::to_string(courseID);
+				if (str.length() != 4)
+					std::cout << "Please enter a valid user ID.\n\n";
+			} while (str.length() != 4);
+
+			addStudent(dir, ID, courseID);
+
+			break;
+		}
+		case 2: {
+			do {
+				std::cout << "Please enter the 4-digit Student ID: ";
+				std::cin >> ID;
+				std::cout << "\n";
+				std::cout << "Please enter the 4-digit course ID: ";
+				std::cin >> courseID;
+				std::cout << "\n";
+				str = std::to_string(courseID);
+				if (str.length() != 4)
+					std::cout << "Please enter a valid user ID.\n\n";
+			} while (str.length() != 4);
+
+			dropStudent(dir, ID, courseID);
+
+			break;
+		}
+		case 0:
+			break;
+		default: {
+			std::cout << "\nPlease enter valid choice.\n\n";
+		}
+		}
+	}
 }
 
-void admin_c::searchCourses() {
-	std::cout << "Admin search courses has been called.\n\n";
+void admin_c::searchCourses(const char* dir) {
+	searchCourses(dir);
 }
 
-void admin_c::printCourses() {
-	std::cout << "Admin print courses has been called.\n\n";
+void admin_c::printCourses(const char* dir) {
+	printTable(dir, "COURSE");
 }
 
-void admin_c::printRosters() {
-	std::cout << "Admin print roster has been called.\n\n";
+void admin_c::printRosters(const char* dir) {
+	printRoster(dir, ID);
 }
 
 void admin_c::printAll() {
@@ -375,7 +464,6 @@ void admin_c::printAll() {
 ////////////////////////////////////////////////////
 // * * * * * * * * * * COURSE * * * * * * * * * * //
 ////////////////////////////////////////////////////
-// Course functions written by group
 course_c::course_c(int courseID, std::string courseName, std::string departmnent, int credits, std::string time, std::string daysOfWeek, std::string semester, int year) {
 	this->courseID = courseID;
 	this->courseName = courseName;
