@@ -56,9 +56,8 @@ class student_c : public user_c {
 		float getGPA();
 
 		void searchCourses(const char*);
-		void addDropCourse();
-		void printSchedule();
-		void printGPA();
+		void addDropCourse(const char*);
+		void printSchedule(const char*);
 
 		void printAll();
 };
@@ -85,8 +84,7 @@ class instructor_c : public user_c {
 		std::string getDegree();
 
 		void searchCourses();
-		void printSchedule();
-		void printClasslist();
+		void printRosters();
 
 		void printAll();
 };
@@ -110,13 +108,12 @@ class admin_c : public user_c {
 		std::string getTitle();
 		std::string getOffice();
 
+		void searchCourses(); // Same for all
+		void addDropStudents(); // Same as in student_c
 		void addRemoveCourses();
 		void addRemoveUsers(const char*, const int&, const int&, const int&, student_c*, instructor_c*, admin_c*, int&, int&, int&);
-		void addDropStudents();
-		void searchCourses();
-		void searchRosters();
+		void printRosters(); // Same as in inctructor_c
 		void printCourses();
-		void printRoster();
 
 		void printAll();
 };
@@ -130,8 +127,8 @@ class course_c {
 	private:
 		int courseID, year, credits;
 		std::string courseName, department, daysOfWeek, time, semester;
-		int instructor;
-		std::vector<int> enrolledStudents;
+		//int instructor;
+		//std::vector<int> enrolledStudents;
 
 	public:
 		course_c(int courseID, std::string courseName, std::string department, int credits, std::string time, std::string daysOfWeek, std::string semester, int year);
@@ -145,7 +142,7 @@ class course_c {
 		void setDaysOfWeek(std::string);
 		void setSemester(std::string);
 		void setYear(int);
-		void setInstructor(int);
+		//void setInstructor(int);
 
 		int getCourseID();
 		std::string getCourseName();
@@ -155,7 +152,7 @@ class course_c {
 		std::string getDaysOfWeek();
 		std::string getSemester();
 		int getYear();
-		int getInstructor();
+		//int getInstructor();
 };
 
 
@@ -168,20 +165,19 @@ extern int insertUser(const char*, int, std::string, std::string, std::string, i
 extern int insertUser(const char*, int, std::string, std::string, std::string, std::string, std::string); // Instructor
 extern int insertUser(const char*, int, std::string, std::string, std::string, std::string); // Admin
 extern int signInUser(const char* s, int userID, int& userType, student_c* signedInStudent, instructor_c* signedInInstructor, admin_c* signedInAdmin);
+extern int addStudent(const char*, int, int);
+extern int dropStudent(const char*, int, int);
 extern int updateData(const char*);
 extern int printTable(const char*, std::string); // Student, instructor, admin
 extern int printCourse(const char*, int);
-extern int callback_print(void*, int, char**, char**);
-extern int callback_newUser(void*, int, char**, char**);
+extern int printRoster(const char*, int);
+extern int callback_printData(void*, int, char**, char**);
+extern int callback_getData(void*, int, char**, char**);
 
 void newStudent(const char* s);
 void newInstructor(const char* s);
 void newAdmin(const char* s);
-/*
-void deleteAllStudents(std::list<student_c*> studentUsers);
-void deleteAllInstructors(std::list<instructor_c*> instructorUsers);
-void deleteAllAdmin(std::list<admin_c*> adminUsers);
-*/
+
 void studentHome(const char*, student_c* student);
 void instructorHome(const char*, instructor_c* instructor);
 void adminHome(const char*, const int&, const int&, const int&, student_c*, instructor_c*, admin_c*, int&, int&, int&);
