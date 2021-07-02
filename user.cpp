@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////
 // * * * * * * * * * * USER * * * * * * * * * * //
 //////////////////////////////////////////////////
+// User functions written by group
 user_c::user_c(int ID, std::string firstName, std::string lastName) {
 	this->ID = ID;
 	this->firstName = firstName;
@@ -34,6 +35,7 @@ void user_c::printAll() {
 /////////////////////////////////////////////////////
 // * * * * * * * * * * STUDENT * * * * * * * * * * //
 /////////////////////////////////////////////////////
+// Student functions written by Jackson Smith
 student_c::student_c(int ID, std::string firstName, std::string lastName, std::string major, int gradYear, float GPA) : user_c(ID, firstName, lastName) {
 	this->ID = ID;
 	this->firstName = firstName;
@@ -373,6 +375,7 @@ void admin_c::printAll() {
 ////////////////////////////////////////////////////
 // * * * * * * * * * * COURSE * * * * * * * * * * //
 ////////////////////////////////////////////////////
+// Course functions written by group
 course_c::course_c(int courseID, std::string courseName, std::string departmnent, int credits, std::string time, std::string daysOfWeek, std::string semester, int year) {
 	this->courseID = courseID;
 	this->courseName = courseName;
