@@ -62,74 +62,136 @@ float student_c::getGPA() { return GPA; }
 
 void student_c::searchCourses(const char* dir) { /* https://www.quora.com/How-do-I-split-a-string-by-space-into-an-array-in-c++ */
 	
-	int choice = 0;
+	int choice = 3;
 
-	std::cout << "1: Search courses by CID:\n";
-	std::cout << "2: Show all courses:\n";
-	std::cin >> choice;
+	while (choice) {
+		std::cout << " * * * Course Search * * * \n";
+		std::cout << "1: Search courses by CID\n";
+		std::cout << "2: Show all courses\n";
+		std::cout << "0: Return to Home\n";
+		std::cin >> choice;
+		std::cout << "\n";
 
-	switch (choice) {
-		case 1: {
-			std::vector<std::string> courseID;
-			std::string input;
+		switch (choice) {
+			case 1: {
+				std::vector<std::string> courseID;
+				std::string input;
 
-			int invalid = 0;
+				int invalid = 0;
 
-			do {
-				invalid = 0;
-				std::cin.ignore();
-				std::cout << "Please enter the 4-digit course IDs separated by spaces: ";
-				getline(std::cin, input);
+				do {
+					invalid = 0;
+					std::cin.ignore();
+					std::cout << "Please enter the 4-digit course IDs separated by spaces: ";
+					getline(std::cin, input);
+					std::cout << "\n";
+
+					std::istringstream iss(input);
+					for (std::string input; iss >> input; )
+						courseID.push_back(input);
+
+					for (int i = 0; i < courseID.size(); i++) {
+						if (courseID[i].length() != 4) {
+							invalid = 1;
+							break;
+						}
+					}
+					if (invalid) {
+						std::cout << "\nPlease enter valid course IDs.\n\n";
+						for (int i = 0; i <= courseID.size(); i++)
+							courseID.pop_back();
+					}
+				} while (invalid);
+
 				std::cout << "\n";
 
-				std::istringstream iss(input);
-				for (std::string input; iss >> input; )
-					courseID.push_back(input);
-
-				for (int i = 0; i < courseID.size(); i++) {
-					if (courseID[i].length() != 4) {
-						invalid = 1;
-						break;
-					}
-				}
-				if (invalid) {
-					std::cout << "\nPlease enter valid course IDs.\n\n";
-					for (int i = 0; i <= courseID.size(); i++)
-						courseID.pop_back();
-				}
-			} while (invalid);
-
-			std::cout << "\n";
-
-			for (int i = 0; i < courseID.size(); i++)
-				printCourse(dir, std::stoi(courseID[i]));
-			break;
-		}
-		case 2: {
-			printTable(dir, "COURSE");
-			break;
-		}
-		default: {
-
+				for (int i = 0; i < courseID.size(); i++)
+					printCourse(dir, std::stoi(courseID[i]));
+				break;
+			}
+			case 2: {
+				printTable(dir, "COURSE");
+				break;
+			}
+			case 0:
+				break;
+			default: {
+				std::cout << "\nPlease enter a valid choice.\n\n";
+			}
 		}
 	}
 }
 
-void student_c::addDropCourse() {
-	std::cout << "Student add/drop courses has been called.\n\n";
+void student_c::addDropCourse(const char* dir) {
+	
+	int choice = 5, courseID = 0;
+	std::string str;
+
+	while (choice) {
+		std::cout << " * * * Add/Drop Course * * * \n";
+		std::cout << "1: Search courses\n";
+		std::cout << "2: Display schedule\n";
+		std::cout << "3: Add a course\n";
+		std::cout << "4: Drop a course\n";
+		std::cout << "0: Return to Home\n";
+		std::cin >> choice;
+		std::cout << "\n";
+
+		switch (choice) {
+			case 1: {
+				searchCourses(dir);
+				break;
+			}
+			case 2: {
+				printRoster(dir, ID);
+				break;
+			}
+			case 3: {
+				do {
+					std::cout << "Please enter the 4-digit course ID: ";
+					std::cin >> courseID;
+					std::cout << "\n";
+					str = std::to_string(courseID);
+					if (str.length() != 4)
+						std::cout << "Please enter a valid user ID.\n\n";
+				} while (str.length() != 4);
+
+				addStudent(dir, ID, courseID);
+
+				break;
+			}
+			case 4: {
+				do {
+					std::cout << "Please enter the 4-digit course ID: ";
+					std::cin >> courseID;
+					std::cout << "\n";
+					str = std::to_string(courseID);
+					if (str.length() != 4)
+						std::cout << "Please enter a valid user ID.\n\n";
+				} while (str.length() != 4);
+
+				dropStudent(dir, ID, courseID);
+
+				break;
+			}
+			case 0:
+				break;
+			default: {
+				std::cout << "\nPlease enter valid choice.\n\n";
+			}
+		}
+	}
 }
 
-void student_c::printSchedule() {
-	std::cout << "Student print schedule has been called.\n\n";
-}
-
-void student_c::printGPA() {
-	std::cout << "Student print GPA has been called.\n\n";
+void student_c::printSchedule(const char* dir) {
+	printRoster(dir, ID);
 }
 
 void student_c::printAll() {
 	std::cout << " * * * Student Info * * * \n";
 	user_c::printAll();
+	std::cout << "Major: " << major << "\n";
+	std::cout << "Graduation Year: " << gradYear << "\n";
 	std::cout << "GPA: " << GPA << "\n\n";
 }
 
@@ -169,12 +231,8 @@ void instructor_c::searchCourses() {
 	std::cout << "Instructor search has been called.\n\n";
 }
 
-void instructor_c::printSchedule() {
-	std::cout << "Instructor print schedule has been called.\n\n";
-}
-
-void instructor_c::printClasslist() {
-	std::cout << "Instructor print classlist has been called.\n\n";
+void instructor_c::printRosters() {
+	std::cout << "Instructor search rosters has been called.\n\n";
 }
 
 void instructor_c::printAll() {
@@ -217,48 +275,72 @@ void admin_c::addRemoveCourses() {
 
 void admin_c::addRemoveUsers(const char* dir, const int& MAXSTUDENT, const int& MAXINSTRUCTOR, const int& MAXADMIN, student_c* signedInStudent, instructor_c* signedInInstructor, admin_c* signedInAdmin, int& numStudent, int& numInstructor, int& numAdmin) {
 	
-	int userType = 0;
-	std::cout << "Creating new accout.\nEnter account information:\n";
-	std::cout << "1: Student\n";
-	std::cout << "2: Instructor\n";
-	std::cout << "3: Admin\n";
-	std::cin >> userType;
+	int userType = 0, choice = 4;
 
-	switch (userType) {
-		case 1: { // Create new student
-			if (numStudent >= MAXSTUDENT) {
-				std::cout << "\nSorry, our student database is currently at its maximum.\n\n";
-				userType = 0;
+	while (choice) {
+
+		std::cout << " * * * Add/Drop User * * *\n";
+		std::cout << "Search for a user: \n";
+		std::cout << "2: Add a user: \n";
+		std::cout << "3: Drop a user: \n";
+		std::cin >> choice;
+		std::cout << "\n";
+		switch (choice) {
+			case 1: {
+				// * * * MUST BE IMPLEMENTED * * *
 			}
-			else {
-				newStudent(dir);
-				numStudent++;
+			case 2: {
+				std::cout << "Enter account information: \n";
+				std::cout << "1: Student\n";
+				std::cout << "2: Instructor\n";
+				std::cout << "3: Admin\n";
+				std::cin >> userType;
+				std::cout << "\n";
+
+				switch (userType) {
+					case 1: {
+						if (numStudent >= MAXSTUDENT) {
+							std::cout << "Sorry, our student database is currently at its maximum.\n\n";
+							userType = 0;
+						}
+						else {
+							newStudent(dir);
+							numStudent++;
+						}
+						break;
+					}
+					case 2: {
+						if (numInstructor >= MAXINSTRUCTOR) {
+							std::cout << "Sorry, our instructor database is currently at its maximum.\n\n";
+							userType = 0;
+						}
+						else {
+							newInstructor(dir);
+							numInstructor++;
+						}
+						break;
+					}
+					case 3: {
+						if (numAdmin >= MAXADMIN) {
+							std::cout << "Sorry, our admin database is currently at its maximum.\n\n";
+							userType = 0;
+						}
+						else {
+							newAdmin(dir);
+							numAdmin++;
+						}
+						break;
+					}
+					default:
+						std::cout << "Please enter a valid input.\n";
+				}
 			}
-			break;
+			case 3: {
+				// * * * MUST BE IMPLEMENTED * * *
+			}
+			default: 
+				std::cout << "Please enter a valid input.\n";
 		}
-		case 2: { // Create new instructor
-			if (numInstructor >= MAXINSTRUCTOR) {
-				std::cout << "\nSorry, our instructor database is currently at its maximum.\n\n";
-				userType = 0;
-			}
-			else {
-				newInstructor(dir);
-				numInstructor++;
-			}
-			break;
-		}
-		case 3: { // Create new admin
-			if (numAdmin >= MAXADMIN) {
-				std::cout << "\nSorry, our admin database is currently at its maximum.\n\n";
-				userType = 0;
-			}
-			else {
-				newAdmin(dir);
-				numAdmin++;
-			}
-			break;
-		}
-		default: { std::cout << "Please enter a valid input.\n"; }
 	}
 }
 
@@ -270,21 +352,19 @@ void admin_c::searchCourses() {
 	std::cout << "Admin search courses has been called.\n\n";
 }
 
-void admin_c::searchRosters() {
-	std::cout << "Admin search rosters has been called.\n\n";
-}
-
 void admin_c::printCourses() {
 	std::cout << "Admin print courses has been called.\n\n";
 }
 
-void admin_c::printRoster() {
+void admin_c::printRosters() {
 	std::cout << "Admin print roster has been called.\n\n";
 }
 
 void admin_c::printAll() {
-	std::cout << " * * * Admin Info * * * \n";
+	std::cout << " * * Admin Info * * * \n";
 	user_c::printAll();
+	std::cout << "Title: " << title << "\n";
+	std::cout << "Office: " << office << "\n";
 	std::cout << "\n\n";
 }
 
@@ -305,14 +385,15 @@ course_c::course_c(int courseID, std::string courseName, std::string departmnent
 }
 course_c::~course_c() { std::cout << "Course " << courseName << " destructed\n"; };
 
-void course_c::setCourseID(int) { this->courseID = courseID; };
-void course_c::setCourseName(std::string) { this->courseName = courseName; };
-void course_c::setDepartment(std::string) { this->department = department; };
-void course_c::setCredits(int) { this->credits = credits; };
-void course_c::setTime(std::string) { this->time = time; };
-void course_c::setDaysOfWeek(std::string) { this->daysOfWeek = daysOfWeek; };
-void course_c::setSemester(std::string) { this->semester = semester; };
-void course_c::setYear(int) { this->year = year; };
+void course_c::setCourseID(int courseID) { this->courseID = courseID; };
+void course_c::setCourseName(std::string courseName) { this->courseName = courseName; };
+void course_c::setDepartment(std::string department) { this->department = department; };
+void course_c::setCredits(int credits) { this->credits = credits; };
+void course_c::setTime(std::string time) { this->time = time; };
+void course_c::setDaysOfWeek(std::string daysOfWeek) { this->daysOfWeek = daysOfWeek; };
+void course_c::setSemester(std::string semester) { this->semester = semester; };
+void course_c::setYear(int year) { this->year = year; };
+//void course_c::setInstructor(int instructor) { this->instructor = instructor; }
 
 int course_c::getCourseID() { return courseID; };
 std::string course_c::getCourseName() { return courseName; };
@@ -322,3 +403,4 @@ std::string course_c::getTime() { return time; };
 std::string course_c::getDaysOfWeek() { return daysOfWeek; };
 std::string course_c::getSemester() { return semester; };
 int course_c::getYear() { return year; };
+//int course_c::getInstructor() { return instructor; }
