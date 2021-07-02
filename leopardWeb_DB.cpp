@@ -18,7 +18,7 @@ extern int createTable(const char* s, std::string tableType) {
 
 	if (tableType == "STUDENT") {
 		table = "CREATE TABLE STUDENT("
-			"UID INTEGER PRIMARY KEY, "
+			"SID INTEGER PRIMARY KEY, "
 			"NAME TEXT NOT NULL, "
 			"SURNAME TEXT NOT NULL, "
 			"MAJOR TEXT NOT NULL, "
@@ -27,7 +27,7 @@ extern int createTable(const char* s, std::string tableType) {
 	}
 	else if (tableType == "INSTRUCTOR") {
 		table = "CREATE TABLE INSTRUCTOR("
-			"UID INTEGER PRIMARY KEY, "
+			"IID INTEGER PRIMARY KEY, "
 			"NAME TEXT NOT NULL, "
 			"SURNAME TEXT NOT NULL, "
 			"TITLE TEXT NOT NULL, "
@@ -36,15 +36,16 @@ extern int createTable(const char* s, std::string tableType) {
 	}
 	else if (tableType == "ADMIN") {
 		table = "CREATE TABLE ADMIN("
-			"UID INTEGER PRIMARY KEY, "
+			"AID INTEGER PRIMARY KEY, "
 			"NAME TEXT NOT NULL, "
 			"SURNAME TEXT NOT NULL, "
 			"TITLE TEXT NOT NULL, "
 			"OFFICE TEXT NOT NULL); ";
 	}
-	else {
+	else if (tableType == "COURSE") {
 		table = "CREATE TABLE COURSE("
 			"CID INTEGER PRIMARY KEY, "
+			"IID TEXT NOT NULL, "
 			"TITLE TEXT NOT NULL, "
 			"DEPARTMENT TEXT NOT NULL, "
 			"TIME TEXT NOT NULL,"
@@ -52,6 +53,11 @@ extern int createTable(const char* s, std::string tableType) {
 			"SEMESTER TEXT NOT NULL, "
 			"YEAR TEXT NOT NULL, "
 			"CREDITS INTEGER NOT NULL); ";
+	}
+	else {
+		table = "CREATE TABLE ROSTER("
+			"SID INTEGER NOT NULL, "
+			"CID INTEGER NOT NULL); ";
 	}
 
 	try {
@@ -94,11 +100,16 @@ extern int clearTable(const char* s, std::string tableType) {
 		int exit = sqlite3_open(s, &DB);
 		sql = "DELETE FROM ADMIN";
 	}
-	else {
+	else if (tableType == "COURSE") {
 		int exit = sqlite3_open(s, &DB);
 		sql = "DELETE FROM COURSE";
 	}
-	sqlite3_exec(DB, sql.c_str(), callback_print, NULL, NULL);
+	else {
+		int exit = sqlite3_open(s, &DB);
+		sql = "DELETE FROM ROSTER";
+	}
+
+	sqlite3_exec(DB, sql.c_str(), callback_printData, NULL, NULL);
 
 	return 0;
 }
@@ -118,12 +129,15 @@ extern int printTable(const char* s, std::string tableType) {
 	else if (tableType == "ADMIN") {
 		query = "SELECT * FROM ADMIN;";
 	}
-	else {
+	else if (tableType == "COURSE") {
 		query = "SELECT * FROM COURSE;";
+	}
+	else {
+		query = "SELECT * FROM ROSTER;";
 	}
 
 	/* An open database, SQL to be evaluated, callbackPrint function, 1st argument to callbackPrint, Error msg written here */
-	sqlite3_exec(DB, query.c_str(), callback_print, NULL, NULL);
+	sqlite3_exec(DB, query.c_str(), callback_printData, NULL, NULL);
 
 	return 0;
 }
@@ -137,8 +151,29 @@ extern int printCourse(const char* s, int courseID) {
 	query = "SELECT * FROM COURSE WHERE CID = ";
 	query += std::to_string(courseID);
 	query += ";";
-	sqlite3_exec(DB, query.c_str(), callback_print, NULL, NULL);
+	sqlite3_exec(DB, query.c_str(), callback_printData, NULL, NULL);
 
+	return 0;
+}
+
+extern int printRoster(const char* s, int userID) {
+	
+	sqlite3* DB;
+	std::string query;
+	std::vector<std::string> container;
+
+	int exit = sqlite3_open(s, &DB);
+
+	query = "SELECT * FROM ROSTER WHERE SID = ";
+	query += std::to_string(userID);
+	query += ";";
+	sqlite3_exec(DB, query.c_str(), callback_getData, &container, NULL);
+
+	if (container.size()) {
+		for (int i = 0; i < container.size(); i++) {
+			printCourse(s, std::stoi(container[i]));
+		}
+	}
 	return 0;
 }
 
@@ -149,17 +184,43 @@ extern int loadInData(const char* s, int& numStudent, int& numInstructor, int& n
 
 	int exit = sqlite3_open(s, &DB);
 
-	std::string sql("INSERT INTO STUDENT VALUES(1000, 'Jackson', 'Smith', 'BSCO', 2022, 4.00);"
-		"INSERT INTO STUDENT VALUES(1001, 'Johnson', 'Goldsmith', 'BSEE', 1928, 4.00);"
+	std::string sql(
+		"INSERT INTO STUDENT VALUES(1000, 'Jackson', 'Smith', 'BSCO', 2022, 4.00);"
+		"INSERT INTO STUDENT VALUES(1001, 'Johnson', 'Goldsmith', 'BSEE', 1930, 4.00);"
 		"INSERT INTO STUDENT VALUES(1002, 'Jayden', 'Locksmith', 'BSCE', 2010, 3.21);"
 		"INSERT INTO STUDENT VALUES(1003, 'Jared', 'Smitty', 'BSCE', 2011, 3.25);"
+		"INSERT INTO STUDENT VALUES(1004, 'Jaxson', 'Simmons', 'BSCS', 2018, 3.90);"
+
 		"INSERT INTO INSTRUCTOR VALUES (2000, 'Ryan', 'Pasquel', 'Professor', 'ENG', 'PHD');"
 		"INSERT INTO INSTRUCTOR VALUES (2001, 'Gary', 'Leung', 'Professor', 'ENG', 'PHD');"
+
 		"INSERT INTO ADMIN VALUES(3000, 'Frank', 'Frankie', 'VP', 'Dobbs 202');"
-		"INSERT INTO COURSE VALUES(4000, 'Applied Programming Concepts', 'ELEC', '8-9:50am', 'M T R', 'Summer', 2021, 4);"
-		"INSERT INTO COURSE VALUES(4001, 'Signals and Systems', 'ELEC', '10-11:50am', 'T R', 'Summer', 2021, 4);"
-		"INSERT INTO COURSE VALUES(4002, 'Computer Networks for Engineers', 'ELEC', '8-9:15am', 'W F', 'Summer', 2021, 4);"
-		"INSERT INTO COURSE VALUES(4003, 'Advanced Digital Circuit Design', 'ELEC', '12:30-1:50pm', 'W F', 'Summer', 2021, 4);"
+
+		"INSERT INTO COURSE VALUES(4000, 'Applied Programming Concepts', 2000, 'ELEC', '8-9:50am', 'M T R', 'Summer', 2021, 4);"
+		"INSERT INTO COURSE VALUES(4001, 'Signals and Systems', 2001, 'ELEC', '10-11:50am', 'T R', 'Summer', 2021, 3);"
+		"INSERT INTO COURSE VALUES(4002, 'Computer Networks for Engineers', 2000, 'ELEC', '8-9:15am', 'W F', 'Summer', 2021, 4);"
+		"INSERT INTO COURSE VALUES(4003, 'Advanced Digital Circuit Design', 2001, 'ELEC', '12:30-1:50pm', 'W F', 'Summer', 2021, 4);"
+		"INSERT INTO COURSE VALUES(4004, 'Hardware Security', 2001, 'ELEC', '1-2:50pm', 'T R', 'Summer', 2021, 3);"
+
+		"INSERT INTO ROSTER VALUES(1000, 4000);"
+		"INSERT INTO ROSTER VALUES(1000, 4001);"
+		"INSERT INTO ROSTER VALUES(1000, 4002);"
+		"INSERT INTO ROSTER VALUES(1000, 4003);"
+		"INSERT INTO ROSTER VALUES(1000, 4004);"
+
+		"INSERT INTO ROSTER VALUES(1001, 4000);"
+		"INSERT INTO ROSTER VALUES(1001, 4001);"
+		"INSERT INTO ROSTER VALUES(1001, 4002);"
+		"INSERT INTO ROSTER VALUES(1001, 4003);"
+		"INSERT INTO ROSTER VALUES(1001, 4004);"
+
+		"INSERT INTO ROSTER VALUES(1002, 4001);"
+		"INSERT INTO ROSTER VALUES(1002, 4003);"
+
+		"INSERT INTO ROSTER VALUES(1003, 4000);"
+		"INSERT INTO ROSTER VALUES(1003, 4001);"
+		"INSERT INTO ROSTER VALUES(1003, 4002);"
+		"INSERT INTO ROSTER VALUES(1003, 4004);"
 	);
 
 	exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messageError);
@@ -182,22 +243,23 @@ extern int insertUser(const char* s, int userID, std::string firstName, std::str
 	
 	sqlite3* DB;
 	char* messageError;
+	std::string sql;
 
 	int exit = sqlite3_open(s, &DB);
 
-	std::string sql = "INSERT INTO STUDENT VALUES(";
-		sql += std::to_string(userID);
-		sql += ", '";
-		sql += firstName;
-		sql += "', '";
-		sql += lastName;
-		sql += "', '";
-		sql += major;
-		sql += "', ";
-		sql += std::to_string(gradYear);
-		sql += ", ";
-		sql += std::to_string(GPA);
-		sql += ");";
+	sql = "INSERT INTO STUDENT VALUES(";
+	sql += std::to_string(userID);
+	sql += ", '";
+	sql += firstName;
+	sql += "', '";
+	sql += lastName;
+	sql += "', '";
+	sql += major;
+	sql += "', ";
+	sql += std::to_string(gradYear);
+	sql += ", ";
+	sql += std::to_string(GPA);
+	sql += ");";
 
 	exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messageError);
 	if (exit != SQLITE_OK) {
@@ -214,22 +276,23 @@ extern int insertUser(const char* s, int userID, std::string firstName, std::str
 	
 	sqlite3* DB;
 	char* messageError;
+	std::string sql;
 
 	int exit = sqlite3_open(s, &DB);
 
-	std::string sql = "INSERT INTO INSTRUCTOR VALUES(";
-		sql += std::to_string(userID);
-		sql += ", '";
-		sql += firstName;
-		sql += "', '";
-		sql += lastName;
-		sql += "', '";
-		sql += title;
-		sql += "', '";
-		sql += department;
-		sql += "', '";
-		sql += degree;
-		sql += "');";
+	sql = "INSERT INTO INSTRUCTOR VALUES(";
+	sql += std::to_string(userID);
+	sql += ", '";
+	sql += firstName;
+	sql += "', '";
+	sql += lastName;
+	sql += "', '";
+	sql += title;
+	sql += "', '";
+	sql += department;
+	sql += "', '";
+	sql += degree;
+	sql += "');";
 
 	exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messageError);
 	if (exit != SQLITE_OK) {
@@ -246,20 +309,21 @@ extern int insertUser(const char* s, int userID, std::string firstName, std::str
 	
 	sqlite3* DB;
 	char* messageError;
+	std::string sql;
 
 	int exit = sqlite3_open(s, &DB);
 
-	std::string sql = "INSERT INTO ADMIN VALUES(";
-		sql += std::to_string(userID);
-		sql += ", '";
-		sql += firstName;
-		sql += "', '";
-		sql += lastName;
-		sql += "', '";
-		sql += title;
-		sql += "', '";
-		sql += office;
-		sql += "');";
+	sql = "INSERT INTO ADMIN VALUES(";
+	sql += std::to_string(userID);
+	sql += ", '";
+	sql += firstName;
+	sql += "', '";
+	sql += lastName;
+	sql += "', '";
+	sql += title;
+	sql += "', '";
+	sql += office;
+	sql += "');";
 
 	exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messageError);
 	if (exit != SQLITE_OK) {
@@ -284,10 +348,11 @@ extern int signInUser(const char* s, int userID, int& userType, student_c* signe
 	int nextUserType = 1;
 	switch (nextUserType) {
 		case 1: {
-			query = "SELECT * FROM STUDENT WHERE UID = ";
+			query = "SELECT * FROM STUDENT WHERE SID = ";
 			query += std::to_string(userID);
 			query += ";";
-			sqlite3_exec(DB, query.c_str(), callback_newUser, &container, NULL);
+			sqlite3_exec(DB, query.c_str(), callback_getData, &container, NULL);
+
 			if (container.size()) {
 				if (container[0] == std::to_string(userID)) {
 					signedInStudent->setAll(std::stoi(container[0]), container[1], container[2], container[3], std::stoi(container[4]), std::stof(container[5]));
@@ -297,10 +362,11 @@ extern int signInUser(const char* s, int userID, int& userType, student_c* signe
 			}
 		}
 		case 2: {
-			query = "SELECT * FROM INSTRUCTOR WHERE UID = ";
+			query = "SELECT * FROM INSTRUCTOR WHERE IID = ";
 			query += std::to_string(userID);
 			query += ";";
-			sqlite3_exec(DB, query.c_str(), callback_newUser, &container, NULL);
+			sqlite3_exec(DB, query.c_str(), callback_getData, &container, NULL);
+
 			if (container.size()) {
 				if (container[0] == std::to_string(userID)) {
 					signedInInstructor->setAll(std::stoi(container[0]), container[1], container[2], container[3], container[4], container[5]);
@@ -310,10 +376,11 @@ extern int signInUser(const char* s, int userID, int& userType, student_c* signe
 			}
 		}
 		case 3: {
-			query = "SELECT * FROM ADMIN WHERE UID = ";
+			query = "SELECT * FROM ADMIN WHERE AID = ";
 			query += std::to_string(userID);
 			query += ";";
-			sqlite3_exec(DB, query.c_str(), callback_newUser, &container, NULL);
+			sqlite3_exec(DB, query.c_str(), callback_getData, &container, NULL);
+
 			if (container.size()) {
 				if (container[0] == std::to_string(userID)) {
 					signedInAdmin->setAll(std::stoi(container[0]), container[1], container[2], container[3], container[4]);
@@ -323,6 +390,48 @@ extern int signInUser(const char* s, int userID, int& userType, student_c* signe
 			}
 		}
 	}
+	return 0;
+}
+
+extern int addStudent(const char* s, int userID, int courseID) {
+	
+	sqlite3* DB;
+	char* messageError;
+	std::string sql;
+
+	int exit = sqlite3_open(s, &DB);
+
+	sql = "INSERT INTO ROSTER VALUES(";
+	sql += std::to_string(userID);
+	sql += ", ";
+	sql += std::to_string(courseID);
+	sql += ");";
+
+	exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messageError);
+	if (exit != SQLITE_OK) {
+		std::cerr << "Error Insert\n";
+		sqlite3_free(messageError);
+	}
+	else {
+		std::cout << "Records Created Successfully!\n\n";
+	}
+
+	return 0;
+}
+extern int dropStudent(const char* s, int userID, int courseID) {
+	
+	sqlite3* DB;
+	std::string sql;
+
+	int exit = sqlite3_open(s, &DB);
+
+	sql = "DELETE FROM ROSTER WHERE SID = ";
+	sql += std::to_string(userID);
+	sql += " AND CID = ";
+	sql += std::to_string(courseID);
+	
+	sqlite3_exec(DB, sql.c_str(), callback_printData, NULL, NULL);
+
 	return 0;
 }
 
@@ -348,7 +457,7 @@ extern int updateData(const char* s) {
 }
 
 /* argc: holds the number of results, azColName: holds each column returned in array, argv: holds each value in array */
-extern int callback_print(void* NotUsed, int argc, char** argv, char** azColName) {
+extern int callback_printData(void* NotUsed, int argc, char** argv, char** azColName) {
 	
 	for (int i = 0; i < argc; i++) {
 		// column name and value
@@ -359,7 +468,7 @@ extern int callback_print(void* NotUsed, int argc, char** argv, char** azColName
 	return 0;
 }
 
-extern int callback_newUser(void* data, int argc, char** argv, char** azColName) {
+extern int callback_getData(void* data, int argc, char** argv, char** azColName) {
 	
 	if (argc == 0)    //nothing in the row; shouldn’t happen
 		return -1;
