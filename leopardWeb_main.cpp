@@ -11,6 +11,7 @@ Functions that need to check if user/course is already in DB:
 
 #include "user.h"
 
+// Main function written by group
 int main() {
 	/*********************************************************/
 	const int MAXSTUDENT = 100;
