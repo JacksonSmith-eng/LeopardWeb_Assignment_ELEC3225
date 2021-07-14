@@ -65,8 +65,8 @@ void instructorHome(const char* dir, instructor_c* instructor) {
 		std::cout << std::endl;
 
 		switch (choice) {
-			case 1: { instructor->searchCourses(); break; }
-			case 2: { instructor->printRosters(); break; }
+			case 1: { instructor->searchCourses(dir); break; }
+			case 2: { instructor->printRosters(dir); break; }
 			case 3: { instructor->printAll(); break; }
 			case 0: {
 				do {
@@ -101,20 +101,22 @@ void adminHome(const char* dir, const int& MAXSTUDENT, const int& MAXINSTRUCTOR,
 		std::cout << "1: Add/Remove courses\n";
 		std::cout << "2: Add/Remove users\n";
 		std::cout << "3: Add/Drop students\n";
-		std::cout << "4: Search for courses/rosters\n";
-		std::cout << "5: Display courses\n";
-		std::cout << "6: Display all admin info\n";
+		std::cout << "4: Search for courses\n";
+		std::cout << "5: Search for rosters\n";
+		std::cout << "6: Display courses\n";
+		std::cout << "7: Display all admin info\n";
 		std::cout << "0: Sign out\n";
 		std::cin >> choice;
 		std::cout << std::endl;
 
 		switch (choice) {
-			case 1: { admin->addRemoveCourses(); break; }
+			case 1: { admin->addRemoveCourses(dir); break; }
 			case 2: { admin->addRemoveUsers(dir, MAXSTUDENT, MAXINSTRUCTOR, MAXADMIN, signedInStudent, signedInInstructor, admin, numStudent, numInstructor, numAdmin); break; }
-			case 3: { admin->addDropStudents(); break; }
-			case 4: { admin->searchCourses(); break; }
-			case 5: { admin->printCourses(); break; }
-			case 6: { admin->printAll(); break; }
+			case 3: { admin->addDropStudents(dir); break; }
+			case 4: { admin->searchCourses(dir); break; }
+			case 5: { admin->searchRosters(dir); break; }
+			case 6: { admin->printCourses(dir); break; }
+			case 7: { admin->printAll(); break; }
 			case 0: {
 				do {
 					if (signedIn != 0 && signedIn != 1)

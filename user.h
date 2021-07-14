@@ -7,9 +7,9 @@
 #include <vector>
 #include <stdio.h>
 #include <sqlite3.h>
+#include <fstream>
 
-// Classes written by group
-
+// All classes written by group
 //////////////////////////////////////////////////
 // * * * * * * * * * * USER * * * * * * * * * * //
 //////////////////////////////////////////////////
@@ -110,12 +110,12 @@ class admin_c : public user_c {
 		std::string getTitle();
 		std::string getOffice();
 
-		void searchCourses(); // Same for all
-		void addDropStudents(); // Same as in student_c
-		void addRemoveCourses();
+		void searchCourses(const char*);
+		void searchRosters(const char*);
+		void addDropStudents(const char*);
+		void addRemoveCourses(const char*);
 		void addRemoveUsers(const char*, const int&, const int&, const int&, student_c*, instructor_c*, admin_c*, int&, int&, int&);
-		void printRosters(); // Same as in inctructor_c
-		void printCourses();
+		void printCourses(const char*);
 
 		void printAll();
 };
@@ -129,8 +129,6 @@ class course_c {
 	private:
 		int courseID, year, credits;
 		std::string courseName, department, daysOfWeek, time, semester;
-		//int instructor;
-		//std::vector<int> enrolledStudents;
 
 	public:
 		course_c(int courseID, std::string courseName, std::string department, int credits, std::string time, std::string daysOfWeek, std::string semester, int year);
@@ -144,7 +142,6 @@ class course_c {
 		void setDaysOfWeek(std::string);
 		void setSemester(std::string);
 		void setYear(int);
-		//void setInstructor(int);
 
 		int getCourseID();
 		std::string getCourseName();
@@ -154,7 +151,6 @@ class course_c {
 		std::string getDaysOfWeek();
 		std::string getSemester();
 		int getYear();
-		//int getInstructor();
 };
 
 
@@ -166,19 +162,25 @@ extern int loadInData(const char*, int&, int&, int&);
 extern int insertUser(const char*, int, std::string, std::string, std::string, int, float); // Student
 extern int insertUser(const char*, int, std::string, std::string, std::string, std::string, std::string); // Instructor
 extern int insertUser(const char*, int, std::string, std::string, std::string, std::string); // Admin
+extern int checkExistingUID(const char*, int, bool&);
+extern int checkExistingCID(const char*, int, bool&);
 extern int signInUser(const char* s, int userID, int& userType, student_c* signedInStudent, instructor_c* signedInInstructor, admin_c* signedInAdmin);
 extern int addStudent(const char*, int, int);
 extern int dropStudent(const char*, int, int);
+extern int insertCourse(const char*, int, int, std::string, std::string, std::string, std::string, std::string, int, int);
+extern int deleteCourse(const char*, int);
 extern int updateData(const char*);
 extern int printTable(const char*, std::string); // Student, instructor, admin
 extern int printCourse(const char*, int);
-extern int printRoster(const char*, int);
+extern int printStudentSchedule(const char*, int);
+extern int printStudentData(const char* s, int);
+extern int printCourseRoster(const char*, int);
 extern int callback_printData(void*, int, char**, char**);
 extern int callback_getData(void*, int, char**, char**);
 
-void newStudent(const char* s);
-void newInstructor(const char* s);
-void newAdmin(const char* s);
+void newStudent(const char* s, int&);
+void newInstructor(const char* s, int&);
+void newAdmin(const char* s, int&);
 
 void studentHome(const char*, student_c* student);
 void instructorHome(const char*, instructor_c* instructor);

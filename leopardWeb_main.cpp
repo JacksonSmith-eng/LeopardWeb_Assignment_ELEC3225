@@ -2,6 +2,7 @@
 For testing:
  - When program begins, some hardcoded users should populate db
  - When program ends, delete everything
+
 Functions that need to check if user/course is already in DB:
  - admin_c::addRemoveCourses()
  - admin_c::addRemoveUsers()
@@ -10,17 +11,22 @@ Functions that need to check if user/course is already in DB:
 
 #include "user.h"
 
-// Main function written by group
+ // Main function written by group
 int main() {
 	/*********************************************************/
 	const int MAXSTUDENT = 100;
 	const int MAXINSTRUCTOR = 10;
 	const int MAXADMIN = 1;
 	/*********************************************************/
-	
+
+	std::ifstream inputStream;
+	inputStream.open("The_Tests\\test_admin_showInfo.txt");
+
+	std::ofstream outputStream;
+
 	const char* dir = "C:\\Users\\smithj42\\Documents\\2020-2021\\Applied_Programming_Concepts\\Semester_Assignment\\LeopardWeb_Assignment\\LeopardWeb_Assignment_ELEC3225\\The_Database\\leopardWeb.db";
 	sqlite3* DB;
-	
+
 	int userID;
 	int userType = 0, numStudent = 0, numInstructor = 0, numAdmin = 0, run_program = 1;
 
@@ -30,12 +36,12 @@ int main() {
 
 	createDB(dir);
 	// Comment out when program is implemented: BEGIN
-	createTable(dir, "STUDENT");
+	/*createTable(dir, "STUDENT");
 	createTable(dir, "INSTRUCTOR");
 	createTable(dir, "ADMIN");
 	createTable(dir, "COURSE");
 	createTable(dir, "ROSTER");
-
+	*/
 	clearTable(dir, "STUDENT");
 	clearTable(dir, "INSTRUCTOR");
 	clearTable(dir, "ADMIN");
@@ -43,29 +49,28 @@ int main() {
 	clearTable(dir, "ROSTER");
 
 	loadInData(dir, numStudent, numInstructor, numAdmin);
-
+	/*
 	printTable(dir, "STUDENT");
 	printTable(dir, "INSTRUCTOR");
 	printTable(dir, "ADMIN");
 	printTable(dir, "COURSE");
-	printTable(dir, "ROSTER");
+	printTable(dir, "ROSTER");*/
 	// Comment out when program is implemented: END
 	while (run_program) {
 		userType = 0;
 		std::cout << " * * * LeopardWeb * * *\n"; // Homepage	
-		//std::cout << "2: Create account\n";
 		std::cout << "1: Sign in\n";
 		std::cout << "0: End program\n";
-		std::cin >> run_program;
-		//run_program = 1; // * * * TEST * * *
+		//std::cin >> run_program;
+		inputStream >> run_program;
 		std::cout << "\n";
 		switch (run_program) {
 			case 1: { // Sign into account
 				std::string str;
 				do {
 					std::cout << "Please enter your 4-digit user ID: ";
-					std::cin >> userID;
-					//userID = 1000; // * * * TEST * * *
+					//std::cin >> userID;
+					inputStream >> userID;
 					std::cout << "\n";
 					str = std::to_string(userID);
 					if (str.length() != 4)
@@ -97,29 +102,28 @@ int main() {
 			}
 			default: { std::cout << "Please enter a valid choice.\n\n"; }
 		}
-			/*********************************************************/
+		/*********************************************************/
 		if (run_program) {
 			switch (userType) { // Go to user home
-				case 1: { studentHome(dir, signedInStudent); break; }
-				case 2: { instructorHome(dir, signedInInstructor); break; }
-				case 3: { adminHome(dir, MAXSTUDENT, MAXINSTRUCTOR, MAXADMIN, signedInStudent, signedInInstructor, signedInAdmin, numStudent, numInstructor, numAdmin); break; }
-				case 0: { break; }
-				default: { std::cout << "Please enter a valid choice.\n"; }
+			case 1: { studentHome(dir, signedInStudent); break; }
+			case 2: { instructorHome(dir, signedInInstructor); break; }
+			case 3: { adminHome(dir, MAXSTUDENT, MAXINSTRUCTOR, MAXADMIN, signedInStudent, signedInInstructor, signedInAdmin, numStudent, numInstructor, numAdmin); break; }
+			case 0: { break; }
+			default: { std::cout << "Please enter a valid choice.\n"; }
 			}
 		}
 	}
 	/*********************************************************/
 	std::cout << " * * * EXITING * * * \n";
 	// Comment out when program is implemented: BEGIN
-	printTable(dir, "STUDENT");
+	/*printTable(dir, "STUDENT");
 	printTable(dir, "INSTRUCTOR");
 	printTable(dir, "ADMIN");
 	printTable(dir, "COURSE");
-	printTable(dir, "ROSTER");
+	printTable(dir, "ROSTER");*/
 	// Comment out when program is implemented: END
-	//delete signedInStudent;
-	//delete signedInInstructor;
-	//delete signedInAdmin;
+
+	inputStream.close();
 
 	return 0;
 }

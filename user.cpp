@@ -143,7 +143,7 @@ void student_c::addDropCourse(const char* dir) {
 			break;
 		}
 		case 2: {
-			printRoster(dir, ID);
+			printStudentSchedule(dir, ID);
 			break;
 		}
 		case 3: {
@@ -184,7 +184,7 @@ void student_c::addDropCourse(const char* dir) {
 }
 
 void student_c::printSchedule(const char* dir) {
-	printRoster(dir, ID);
+	printStudentSchedule(dir, ID);
 }
 
 void student_c::printAll() {
@@ -229,69 +229,125 @@ std::string instructor_c::getDegree() { return degree; }
 
 void instructor_c::searchCourses(const char* dir) { /* https://www.quora.com/How-do-I-split-a-string-by-space-into-an-array-in-c++ */
 
-		int choice = 3;
+	int choice = 3;
 
-		while (choice) {
-			std::cout << " * * * Course Search * * * \n";
-			std::cout << "1: Search courses by CID\n";
-			std::cout << "2: Show all courses\n";
-			std::cout << "0: Return to Home\n";
-			std::cin >> choice;
-			std::cout << "\n";
+	while (choice) {
+		std::cout << " * * * Course Search * * * \n";
+		std::cout << "1: Search courses by CID\n";
+		std::cout << "2: Show all courses\n";
+		std::cout << "0: Return to Home\n";
+		std::cin >> choice;
+		std::cout << "\n";
 
-			switch (choice) {
-			case 1: {
-				std::vector<std::string> courseID;
-				std::string input;
+		switch (choice) {
+		case 1: {
+			std::vector<std::string> courseID;
+			std::string input;
 
-				int invalid = 0;
+			int invalid = 0;
 
-				do {
-					invalid = 0;
-					std::cin.ignore();
-					std::cout << "Please enter the 4-digit course IDs separated by spaces: ";
-					getline(std::cin, input);
-					std::cout << "\n";
-
-					std::istringstream iss(input);
-					for (std::string input; iss >> input; )
-						courseID.push_back(input);
-
-					for (int i = 0; i < courseID.size(); i++) {
-						if (courseID[i].length() != 4) {
-							invalid = 1;
-							break;
-						}
-					}
-					if (invalid) {
-						std::cout << "\nPlease enter valid course IDs.\n\n";
-						for (int i = 0; i <= courseID.size(); i++)
-							courseID.pop_back();
-					}
-				} while (invalid);
-
+			do {
+				invalid = 0;
+				std::cin.ignore();
+				std::cout << "Please enter the 4-digit course IDs separated by spaces: ";
+				getline(std::cin, input);
 				std::cout << "\n";
 
-				for (int i = 0; i < courseID.size(); i++)
-					printCourse(dir, std::stoi(courseID[i]));
-				break;
-			}
-			case 2: {
-				printTable(dir, "COURSE");
-				break;
-			}
-			case 0:
-				break;
-			default: {
-				std::cout << "\nPlease enter a valid choice.\n\n";
-			}
-			}
+				std::istringstream iss(input);
+				for (std::string input; iss >> input; )
+					courseID.push_back(input);
+
+				for (int i = 0; i < courseID.size(); i++) {
+					if (courseID[i].length() != 4) {
+						invalid = 1;
+						break;
+					}
+				}
+				if (invalid) {
+					std::cout << "\nPlease enter valid course IDs.\n\n";
+					for (int i = 0; i <= courseID.size(); i++)
+						courseID.pop_back();
+				}
+			} while (invalid);
+
+			std::cout << "\n";
+
+			for (int i = 0; i < courseID.size(); i++)
+				printCourse(dir, std::stoi(courseID[i]));
+			break;
+		}
+		case 2: {
+			printTable(dir, "COURSE");
+			break;
+		}
+		case 0:
+			break;
+		default: {
+			std::cout << "\nPlease enter a valid choice.\n\n";
+		}
 		}
 	}
 }
 
 void instructor_c::printRosters(const char* dir) {
-	printRoster(dir, ID);
+	int choice = 3;
+
+	while (choice) {
+		std::cout << " * * * Roster Search * * * \n";
+		std::cout << "1: Print roster by CID\n";
+		std::cout << "2: Print all rosters\n";
+		std::cout << "0: Return to Home\n";
+		std::cin >> choice;
+		std::cout << "\n";
+
+		switch (choice) {
+		case 1: {
+			std::vector<std::string> courseID;
+			std::string input;
+
+			int invalid = 0;
+
+			do {
+				invalid = 0;
+				std::cin.ignore();
+				std::cout << "Please enter the 4-digit course IDs separated by spaces: ";
+				getline(std::cin, input);
+				std::cout << "\n";
+
+				std::istringstream iss(input);
+				for (std::string input; iss >> input; )
+					courseID.push_back(input);
+
+				for (int i = 0; i < courseID.size(); i++) {
+					if (courseID[i].length() != 4) {
+						invalid = 1;
+						break;
+					}
+				}
+				if (invalid) {
+					std::cout << "\nPlease enter valid course IDs.\n\n";
+					for (int i = 0; i <= courseID.size(); i++)
+						courseID.pop_back();
+				}
+			} while (invalid);
+
+			std::cout << "\n";
+
+			for (int i = 0; i < courseID.size(); i++)
+				printCourseRoster(dir, std::stoi(courseID[i]));
+			break;
+		}
+		case 2: {
+			printTable(dir, "ROSTER");
+			break;
+		}
+		case 0:
+			break;
+		default: {
+			std::cout << "\nPlease enter a valid choice.\n\n";
+		}
+		}
+	}
 }
 
 void instructor_c::printAll() {
@@ -330,37 +386,80 @@ std::string admin_c::getOffice() { return office; }
 
 void admin_c::addRemoveCourses(const char* dir) {
 
-	int choice = 3, courseID = 0;
-	std::string str;
+	int choice = 3, courseID = 0, instructorID = 0, credits = 0, year = 0;
+	std::string str, courseName, department, time, daysOfWeek, semester;
 
 	while (choice) {
 		std::cout << " * * * Add/Drop Course * * * \n";
-		std::cout << "1: Add a course\n";
-		std::cout << "2: Drop a course\n";
+		std::cout << "1: Insert a course\n";
+		std::cout << "2: Remove a course\n";
 		std::cout << "0: Return to Home\n";
 		std::cin >> choice;
 		std::cout << "\n";
 
 		switch (choice) {
 		case 1: {
+			bool invalidID, foundUID = 0;
 			do {
 				std::cout << "Please enter the 4-digit course ID: ";
 				std::cin >> courseID;
-				std::cout << "\n";
-			} while (str.length() != 4);
+				str = std::to_string(courseID);
+				invalidID = str.length() != 4 || courseID < 4000 || courseID > 4999;
+				if (invalidID)
+					std::cout << "\nPlease enter a valid course ID.\n\n";
+				checkExistingCID(dir, courseID, foundUID);
+			} while (invalidID);
+			if (foundUID)
+				std::cout << "This course already exists in the database.\n";
+			else {
+				do {
+					std::cout << "Please enter the 4-digit instructor ID: ";
+					std::cin >> instructorID;
+					str = std::to_string(instructorID);
+					invalidID = str.length() != 4 || instructorID < 2000 || instructorID > 2999;
+					if (invalidID)
+						std::cout << "\nPlease enter a valid instructor ID.\n\n";
+					checkExistingUID(dir, instructorID, foundUID);
+				} while (invalidID);
+				if (!foundUID)
+					std::cout << "This user does not exist in the database.\n";
+				else {
+					std::cout << "Please enter the course name: ";
+					std::cin.ignore();
+					std::getline(std::cin, courseName);
+					std::cout << "Please enter the department: ";
+					std::getline(std::cin, department);
+					std::cout << "Please enter the time: ";
+					std::getline(std::cin, time);
+					std::cout << "Please enter the days of the week: ";
+					std::getline(std::cin, daysOfWeek);
+					std::cout << "Please enter the semester: ";
+					std::cin >> semester;
+					std::cout << "Please enter the year: ";
+					std::cin >> year;
+					std::cout << "Please enter the credits: ";
+					std::cin >> credits;
+					std::cin.ignore();
+					std::cout << "\n";
 
-			addCourse(dir,courseID);
+					insertCourse(dir, courseID, instructorID, courseName, department, time, daysOfWeek, semester, year, credits);
+				}
+			}
 
 			break;
 		}
 		case 2: {
+			bool invalidID;
 			do {
 				std::cout << "Please enter the 4-digit course ID: ";
 				std::cin >> courseID;
-				std::cout << "\n";
-			} while (str.length() != 4);
+				str = std::to_string(courseID);
+				invalidID = str.length() != 4 || courseID < 4000 || courseID > 4999;
+				if (invalidID)
+					std::cout << "\nPlease enter a valid course ID.\n\n";
+			} while (invalidID);
 
-			dropCourse(dir, courseID);
+			deleteCourse(dir, courseID);
 
 			break;
 		}
@@ -380,16 +479,14 @@ void admin_c::addRemoveUsers(const char* dir, const int& MAXSTUDENT, const int& 
 	while (choice) {
 
 		std::cout << " * * * Add/Drop User * * *\n";
-		std::cout << "Search for a user: \n";
-		std::cout << "2: Add a user: \n";
-		std::cout << "3: Drop a user: \n";
+		std::cout << "Search for a user\n";
+		std::cout << "1: Add a user\n";
+		std::cout << "2: Drop a user\n";
+		std::cout << "0: Return\n";
 		std::cin >> choice;
 		std::cout << "\n";
 		switch (choice) {
 		case 1: {
-			// * * * MUST BE IMPLEMENTED * * *
-		}
-		case 2: {
 			std::cout << "Enter account information: \n";
 			std::cout << "1: Student\n";
 			std::cout << "2: Instructor\n";
@@ -403,10 +500,8 @@ void admin_c::addRemoveUsers(const char* dir, const int& MAXSTUDENT, const int& 
 					std::cout << "Sorry, our student database is currently at its maximum.\n\n";
 					userType = 0;
 				}
-				else {
-					newStudent(dir);
-					numStudent++;
-				}
+				else
+					newStudent(dir, numStudent);
 				break;
 			}
 			case 2: {
@@ -414,10 +509,8 @@ void admin_c::addRemoveUsers(const char* dir, const int& MAXSTUDENT, const int& 
 					std::cout << "Sorry, our instructor database is currently at its maximum.\n\n";
 					userType = 0;
 				}
-				else {
-					newInstructor(dir);
-					numInstructor++;
-				}
+				else
+					newInstructor(dir, numInstructor);
 				break;
 			}
 			case 3: {
@@ -426,27 +519,23 @@ void admin_c::addRemoveUsers(const char* dir, const int& MAXSTUDENT, const int& 
 					userType = 0;
 				}
 				else {
-					newAdmin(dir);
-					numAdmin++;
+					newAdmin(dir, numAdmin);
 				}
 				break;
 			}
-			default:
+			default: {
 				std::cout << "Please enter a valid input.\n";
 			}
+			}
 		}
-		case 3: {
-			// * * * MUST BE IMPLEMENTED * * *
-		}
-		default:
-			std::cout << "Please enter a valid input.\n";
 		}
 	}
 }
+			
 
 void admin_c::addDropStudents(const char* dir) {
 
-	int choice = 5, courseID = 0;
+	int choice = 3, courseID = 0, userID =0;
 	std::string str;
 
 	while (choice) {
@@ -460,13 +549,19 @@ void admin_c::addDropStudents(const char* dir) {
 		switch (choice) {
 		case 1: {
 			do {
+				std::cout << "Please enter the 4-digit student ID: ";
+				std::cin >> userID;
+				str = std::to_string(userID);
+				if (str.length() != 4)
+					std::cout << "Please enter a valid student ID.\n\n";
+			} while (str.length() != 4 || userID > 1999);
+			do {
 				std::cout << "Please enter the 4-digit course ID: ";
-				std::cin >> ID;
-				std::cout << "\n";
+				std::cin >> courseID;
 				str = std::to_string(courseID);
 				if (str.length() != 4)
-					std::cout << "Please enter a valid user ID.\n\n";
-			} while (str.length() != 4);
+					std::cout << "Please enter a valid course ID.\n\n";
+			} while (str.length() != 4 || courseID < 4000 || courseID > 4999);
 
 			addStudent(dir, ID, courseID);
 
@@ -474,40 +569,159 @@ void admin_c::addDropStudents(const char* dir) {
 		}
 		case 2: {
 			do {
-				std::cout << "Please enter the 4-digit Student ID: ";
-				std::cin >> ID;
-				std::cout << "\n";
+				std::cout << "Please enter the 4-digit student ID: ";
+				std::cin >> userID;
+				str = std::to_string(userID);
+				if (str.length() != 4)
+					std::cout << "Please enter a valid student ID.\n\n";
+			} while (str.length() != 4 || userID > 1999);
+			do {
 				std::cout << "Please enter the 4-digit course ID: ";
 				std::cin >> courseID;
-				std::cout << "\n";
 				str = std::to_string(courseID);
 				if (str.length() != 4)
-					std::cout << "Please enter a valid user ID.\n\n";
-			} while (str.length() != 4);
+					std::cout << "Please enter a valid course ID.\n\n";
+			} while (str.length() != 4 || courseID < 4000 || courseID > 4999);
 
 			dropStudent(dir, ID, courseID);
 
 			break;
 		}
+		case 0: {
+			break;
+		}
+		default:{
+			std::cout << "\nPlease enter valid choice.\n\n";
+		}
+		} 
+	}
+}
+
+void admin_c::searchCourses(const char* dir) { /* https://www.quora.com/How-do-I-split-a-string-by-space-into-an-array-in-c++ */
+
+	int choice = 3;
+
+	while (choice) {
+		std::cout << " * * * Course Search * * * \n";
+		std::cout << "1: Search courses by CID\n";
+		std::cout << "2: Show all courses\n";
+		std::cout << "0: Return to Home\n";
+		std::cin >> choice;
+		std::cout << "\n";
+
+		switch (choice) {
+		case 1: {
+			std::vector<std::string> courseID;
+			std::string input;
+
+			int invalid = 0;
+
+			do {
+				invalid = 0;
+				std::cin.ignore();
+				std::cout << "Please enter the 4-digit course IDs separated by spaces: ";
+				getline(std::cin, input);
+				std::cout << "\n";
+
+				std::istringstream iss(input);
+				for (std::string input; iss >> input; )
+					courseID.push_back(input);
+
+				for (int i = 0; i < courseID.size(); i++) {
+					if (courseID[i].length() != 4) {
+						invalid = 1;
+						break;
+					}
+				}
+				if (invalid) {
+					std::cout << "\nPlease enter valid course IDs.\n\n";
+					for (int i = 0; i <= courseID.size(); i++)
+						courseID.pop_back();
+				}
+			} while (invalid);
+
+			std::cout << "\n";
+
+			for (int i = 0; i < courseID.size(); i++)
+				printCourse(dir, std::stoi(courseID[i]));
+			break;
+		}
+		case 2: {
+			printTable(dir, "COURSE");
+			break;
+		}
 		case 0:
 			break;
 		default: {
-			std::cout << "\nPlease enter valid choice.\n\n";
+			std::cout << "\nPlease enter a valid choice.\n\n";
 		}
 		}
 	}
 }
 
-void admin_c::searchCourses(const char* dir) {
-	searchCourses(dir);
+void admin_c::searchRosters(const char* dir) {
+		int choice = 3;
+
+	while (choice) {
+		std::cout << " * * * Roster Search * * * \n";
+		std::cout << "1: Search roster by CID\n";
+		std::cout << "2: Show all rosters\n";
+		std::cout << "0: Return to Home\n";
+		std::cin >> choice;
+		std::cout << "\n";
+
+		switch (choice) {
+		case 1: {
+			std::vector<std::string> courseID;
+			std::string input;
+
+			int invalid = 0;
+
+			do {
+				invalid = 0;
+				std::cin.ignore();
+				std::cout << "Please enter the 4-digit course IDs separated by spaces: ";
+				getline(std::cin, input);
+				std::cout << "\n";
+
+				std::istringstream iss(input);
+				for (std::string input; iss >> input; )
+					courseID.push_back(input);
+
+				for (int i = 0; i < courseID.size(); i++) {
+					if (courseID[i].length() != 4) {
+						invalid = 1;
+						break;
+					}
+				}
+				if (invalid) {
+					std::cout << "\nPlease enter valid course IDs.\n\n";
+					for (int i = 0; i <= courseID.size(); i++)
+						courseID.pop_back();
+				}
+			} while (invalid);
+
+			std::cout << "\n";
+
+			for (int i = 0; i < courseID.size(); i++)
+				printCourseRoster(dir, std::stoi(courseID[i]));
+			break;
+		}
+		case 2: {
+			printTable(dir, "ROSTER");
+			break;
+		}
+		case 0:
+			break;
+		default: {
+			std::cout << "\nPlease enter a valid choice.\n\n";
+		}
+		}
+	}
 }
 
 void admin_c::printCourses(const char* dir) {
 	printTable(dir, "COURSE");
-}
-
-void admin_c::printRosters(const char* dir) {
-	printRoster(dir, ID);
 }
 
 void admin_c::printAll() {
