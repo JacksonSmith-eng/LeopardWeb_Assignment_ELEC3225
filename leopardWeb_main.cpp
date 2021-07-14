@@ -20,7 +20,8 @@ int main() {
 	/*********************************************************/
 
 	std::ifstream inputStream;
-	inputStream.open("The_Tests\\test_admin_showInfo.txt");
+	inputStream.open("The_Tests\\test_usersMain_signInOut.txt");
+	//inputStream.open("The_Tests\\test_admin_showInfo.txt");
 
 	std::ofstream outputStream;
 
@@ -95,7 +96,8 @@ int main() {
 					std::cout << "You wish to exit?\n";
 					std::cout << "1: Return\n";
 					std::cout << "0: Exit\n";
-					std::cin >> run_program;
+					//std::cin >> run_program;
+					inputStream >> run_program;
 					std::cout << std::endl;
 				} while (run_program != 0 && run_program != 1);
 				break;
