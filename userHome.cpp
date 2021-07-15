@@ -8,7 +8,7 @@
 void studentHome(const char* dir, student_c* student) {
 
 	std::ifstream inputStream;
-	inputStream.open("The_Tests\\test_userHome_signInOut.txt");
+	inputStream.open("C:\\Users\\pasquelr\\Desktop\\LeopardWebAssignment\\The_Tests\\TestUserSignInOut\\Test_userHome_Student.txt");
 
 	int signedIn = 1;
 
@@ -27,24 +27,24 @@ void studentHome(const char* dir, student_c* student) {
 		std::cout << std::endl;
 
 		switch (choice) {
-			case 1: { student->searchCourses(dir); break; }
-			case 2: { student->addDropCourse(dir); break; }
-			case 3: { student->printSchedule(dir); break; }
-			case 4: { student->printAll(); break; }
-			case 0: {
-				do {
-					if (signedIn != 0 && signedIn != 1)
-						std::cout << "Please enter a valid choice.\n\n";
-					std::cout << "You wish to sign out?\n";
-					std::cout << "1: Stay signed in\n";
-					std::cout << "0: Sign out\n";
-					//std::cin >> signedIn;
-					inputStream >> signedIn;
-					std::cout << std::endl;
-				} while (signedIn != 0 && signedIn != 1);
-				break;
-			}
-			default: { std::cout << "Please enter a valid choice.\n\n"; }
+		case 1: { student->searchCourses(dir); break; }
+		case 2: { student->addDropCourse(dir); break; }
+		case 3: { student->printSchedule(dir); break; }
+		case 4: { student->printAll(); break; }
+		case 0: {
+			do {
+				if (signedIn != 0 && signedIn != 1)
+					std::cout << "Please enter a valid choice.\n\n";
+				std::cout << "You wish to sign out?\n";
+				std::cout << "1: Stay signed in\n";
+				std::cout << "0: Sign out\n";
+				//std::cin >> signedIn;
+				inputStream >> signedIn;
+				std::cout << std::endl;
+			} while (signedIn != 0 && signedIn != 1);
+			break;
+		}
+		default: { std::cout << "Please enter a valid choice.\n\n"; }
 		}
 	}
 	inputStream.close();
@@ -58,7 +58,7 @@ void studentHome(const char* dir, student_c* student) {
 void instructorHome(const char* dir, instructor_c* instructor) {
 
 	std::ifstream inputStream;
-	inputStream.open("The_Tests\\test_userHome_signInOut.txt");
+	inputStream.open("C:\\Users\\pasquelr\\Desktop\\LeopardWebAssignment\\The_Tests\\TestUserSignInOut\\Test_userHome_Instructor.txt");
 
 	int signedIn = 1;
 
@@ -75,23 +75,23 @@ void instructorHome(const char* dir, instructor_c* instructor) {
 		std::cout << std::endl;
 
 		switch (choice) {
-			case 1: { instructor->searchCourses(dir); break; }
-			case 2: { instructor->printRosters(dir); break; }
-			case 3: { instructor->printAll(); break; }
-			case 0: {
-				do {
-					if (signedIn != 0 && signedIn != 1)
-						std::cout << "Please enter a valid choice.\n\n";
-					std::cout << "You wish to sign out?\n";
-					std::cout << "1: Stay signed in\n";
-					std::cout << "0: Sign out\n";
-					//std::cin >> signedIn;
-					inputStream >> signedIn;
-					std::cout << std::endl;
-				} while (signedIn != 0 && signedIn != 1);
-				break;
-			}
-			default: { std::cout << "Please enter a valid choice.\n\n"; }
+		case 1: { instructor->searchCourses(dir); break; }
+		case 2: { instructor->printRosters(dir); break; }
+		case 3: { instructor->printAll(); break; }
+		case 0: {
+			do {
+				if (signedIn != 0 && signedIn != 1)
+					std::cout << "Please enter a valid choice.\n\n";
+				std::cout << "You wish to sign out?\n";
+				std::cout << "1: Stay signed in\n";
+				std::cout << "0: Sign out\n";
+				//std::cin >> signedIn;
+				inputStream >> signedIn;
+				std::cout << std::endl;
+			} while (signedIn != 0 && signedIn != 1);
+			break;
+		}
+		default: { std::cout << "Please enter a valid choice.\n\n"; }
 		}
 	}
 	inputStream.close();
@@ -103,9 +103,9 @@ void instructorHome(const char* dir, instructor_c* instructor) {
 // * * * * * * * * * * ADMIN * * * * * * * * * * //
 ///////////////////////////////////////////////////
 void adminHome(const char* dir, const int& MAXSTUDENT, const int& MAXINSTRUCTOR, const int& MAXADMIN, student_c* signedInStudent, instructor_c* signedInInstructor, admin_c* admin, int& numStudent, int& numInstructor, int& numAdmin) {
-	
+
 	std::ifstream inputStream;
-	inputStream.open("The_Tests\\test_userHome_signInOut.txt");
+	inputStream.open("C:\\Users\\pasquelr\\Desktop\\LeopardWebAssignment\\The_Tests\\TestUserSignInOut\\Test_userHome_Admin.txt");
 
 	int signedIn = 1;
 
@@ -126,27 +126,27 @@ void adminHome(const char* dir, const int& MAXSTUDENT, const int& MAXINSTRUCTOR,
 		std::cout << std::endl;
 
 		switch (choice) {
-			case 1: { admin->addRemoveCourses(dir); break; }
-			case 2: { admin->addRemoveUsers(dir, MAXSTUDENT, MAXINSTRUCTOR, MAXADMIN, signedInStudent, signedInInstructor, admin, numStudent, numInstructor, numAdmin); break; }
-			case 3: { admin->addDropStudents(dir); break; }
-			case 4: { admin->searchCourses(dir); break; }
-			case 5: { admin->searchRosters(dir); break; }
-			case 6: { admin->printCourses(dir); break; }
-			case 7: { admin->printAll(); break; }
-			case 0: {
-				do {
-					if (signedIn != 0 && signedIn != 1)
-						std::cout << "Please enter a valid choice.\n\n";
-					std::cout << "You wish to sign out?\n";
-					std::cout << "1: Stay signed in\n";
-					std::cout << "0: Sign out\n";
-					//std::cin >> signedIn;
-					inputStream >> signedIn;
-					std::cout << std::endl;
-				} while (signedIn != 0 && signedIn != 1);
-				break;
-			}
-			default: { std::cout << "Please enter a valid choice.\n\n"; }
+		case 1: { admin->addRemoveCourses(dir); break; }
+		case 2: { admin->addRemoveUsers(dir, MAXSTUDENT, MAXINSTRUCTOR, MAXADMIN, signedInStudent, signedInInstructor, admin, numStudent, numInstructor, numAdmin); break; }
+		case 3: { admin->addDropStudents(dir); break; }
+		case 4: { admin->searchCourses(dir); break; }
+		case 5: { admin->searchRosters(dir); break; }
+		case 6: { admin->printCourses(dir); break; }
+		case 7: { admin->printAll(); break; }
+		case 0: {
+			do {
+				if (signedIn != 0 && signedIn != 1)
+					std::cout << "Please enter a valid choice.\n\n";
+				std::cout << "You wish to sign out?\n";
+				std::cout << "1: Stay signed in\n";
+				std::cout << "0: Sign out\n";
+				//std::cin >> signedIn;
+				inputStream >> signedIn;
+				std::cout << std::endl;
+			} while (signedIn != 0 && signedIn != 1);
+			break;
+		}
+		default: { std::cout << "Please enter a valid choice.\n\n"; }
 		}
 	}
 	inputStream.close();
