@@ -1,0 +1,178 @@
+Records Created Successfully!
+
+ * * * LeopardWeb * * *
+1: Sign in
+0: End program
+
+Please enter your 4-digit user ID:
+ * * * Student Home * * *
+1: Search courses
+2: Add/Drop courses
+3: Display schedule
+4: Display all student info
+0: Sign out
+
+ * * * Course Search * * *
+1: Search courses by CID
+2: Show all courses
+0: Return to Home
+
+Please enter the 4-digit course IDs separated by spaces:
+
+CID: 4000
+IID: 2000
+TITLE: Applied Programming Concepts
+DEPARTMENT: ELEC
+TIME: 8-9:50am
+DAYSOFWEEK: M T R
+SEMESTER: Summer
+YEAR: 2021
+CREDITS: 4
+
+ * * * Course Search * * *
+1: Search courses by CID
+2: Show all courses
+0: Return to Home
+
+ * * * Student Home * * *
+1: Search courses
+2: Add/Drop courses
+3: Display schedule
+4: Display all student info
+0: Sign out
+
+You wish to sign out?
+1: Stay signed in
+0: Sign out
+
+ * * * LeopardWeb * * *
+1: Sign in
+0: End program
+
+Please enter your 4-digit user ID:
+ * * * Instructor Home * * *
+1: Search courses
+2: Display Course Roster
+3: Display all instructor info
+0: Sign out
+
+ * * * Course Search * * *
+1: Search courses by CID
+2: Show all courses
+0: Return to Home
+
+Please enter the 4-digit course IDs separated by spaces:
+
+CID: 4000
+IID: 2000
+TITLE: Applied Programming Concepts
+DEPARTMENT: ELEC
+TIME: 8-9:50am
+DAYSOFWEEK: M T R
+SEMESTER: Summer
+YEAR: 2021
+CREDITS: 4
+
+ * * * Course Search * * *
+1: Search courses by CID
+2: Show all courses
+0: Return to Home
+
+ * * * Instructor Home * * *
+1: Search courses
+2: Display Course Roster
+3: Display all instructor info
+0: Sign out
+
+You wish to sign out?
+1: Stay signed in
+0: Sign out
+
+ * * * LeopardWeb * * *
+1: Sign in
+0: End program
+
+Please enter your 4-digit user ID:
+ * * * Admin Home * * *
+1: Add/Remove courses
+2: Add/Remove users
+3: Add/Drop students
+4: Search for courses
+5: Search for rosters
+6: Display courses
+7: Display all admin info
+0: Sign out
+
+CID: 4000
+IID: 2000
+TITLE: Applied Programming Concepts
+DEPARTMENT: ELEC
+TIME: 8-9:50am
+DAYSOFWEEK: M T R
+SEMESTER: Summer
+YEAR: 2021
+CREDITS: 4
+
+CID: 4001
+IID: 2001
+TITLE: Signals and Systems
+DEPARTMENT: ELEC
+TIME: 10-11:50am
+DAYSOFWEEK: T R
+SEMESTER: Summer
+YEAR: 2021
+CREDITS: 3
+
+CID: 4002
+IID: 2000
+TITLE: Computer Networks for Engineers
+DEPARTMENT: ELEC
+TIME: 8-9:15am
+DAYSOFWEEK: W F
+SEMESTER: Summer
+YEAR: 2021
+CREDITS: 4
+
+CID: 4003
+IID: 2001
+TITLE: Advanced Digital Circuit Design
+DEPARTMENT: ELEC
+TIME: 12:30-1:50pm
+DAYSOFWEEK: W F
+SEMESTER: Summer
+YEAR: 2021
+CREDITS: 4
+
+CID: 4004
+IID: 2001
+TITLE: Hardware Security
+DEPARTMENT: ELEC
+TIME: 1-2:50pm
+DAYSOFWEEK: T R
+SEMESTER: Summer
+YEAR: 2021
+CREDITS: 3
+
+ * * * Admin Home * * *
+1: Add/Remove courses
+2: Add/Remove users
+3: Add/Drop students
+4: Search for courses
+5: Search for rosters
+6: Display courses
+7: Display all admin info
+0: Sign out
+
+You wish to sign out?
+1: Stay signed in
+0: Sign out
+
+ * * * LeopardWeb * * *
+1: Sign in
+0: End program
+
+You wish to exit?
+1: Return
+0: Exit
+
+ * * * EXITING * * *
