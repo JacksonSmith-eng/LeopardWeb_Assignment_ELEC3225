@@ -7,9 +7,10 @@ Functions that need to check if user/course is already in DB:
  - admin_c::addRemoveCourses()
  - admin_c::addRemoveUsers()
  - student_c::addDropCourse()
- */
+ */ 
 
 #include "user.h"
+#include <fstream>
 
  // Main function written by group
 int main() {
@@ -20,12 +21,12 @@ int main() {
 	/*********************************************************/
 
 	std::ifstream inputStream;
-	inputStream.open("The_Tests\\test_usersMain_signInOut.txt");
+	inputStream.open("C:\\Users\\pasquelr\\Desktop\\LeopardWebAssignment\\The_Tests\\TestUserSignInOut\\Test_userMain_signInOut.txt");
 	//inputStream.open("The_Tests\\test_admin_showInfo.txt");
 
 	std::ofstream outputStream;
 
-	const char* dir = "C:\\Users\\smithj42\\Documents\\2020-2021\\Applied_Programming_Concepts\\Semester_Assignment\\LeopardWeb_Assignment\\LeopardWeb_Assignment_ELEC3225\\The_Database\\leopardWeb.db";
+	const char* dir = "C:\\Users\\pasquelr\\Desktop\\LeopardWebAssignment\\leopardWeb.db";
 	sqlite3* DB;
 
 	int userID;
@@ -66,43 +67,43 @@ int main() {
 		inputStream >> run_program;
 		std::cout << "\n";
 		switch (run_program) {
-			case 1: { // Sign into account
-				std::string str;
-				do {
-					std::cout << "Please enter your 4-digit user ID: ";
-					//std::cin >> userID;
-					inputStream >> userID;
-					std::cout << "\n";
-					str = std::to_string(userID);
-					if (str.length() != 4)
-						std::cout << "Please enter a valid user ID.\n\n";
-				} while (str.length() != 4);
-				if ((numStudent == 0) & (numInstructor == 0) & (numAdmin == 0))
-					std::cout << "Sorry, the database is empty\n\n";
-				else {
-					signInUser(dir, userID, userType, signedInStudent, signedInInstructor, signedInAdmin);
+		case 1: { // Sign into account
+			std::string str;
+			do {
+				std::cout << "Please enter your 4-digit user ID: ";
+				//std::cin >> userID;
+				inputStream >> userID;
+				std::cout << "\n";
+				str = std::to_string(userID);
+				if (str.length() != 4)
+					std::cout << "Please enter a valid user ID.\n\n";
+			} while (str.length() != 4);
+			if ((numStudent == 0) & (numInstructor == 0) & (numAdmin == 0))
+				std::cout << "Sorry, the database is empty\n\n";
+			else {
+				signInUser(dir, userID, userType, signedInStudent, signedInInstructor, signedInAdmin);
 
-					if (!userType) {
-						std::cout << "Sorry, we couldn't find you in the database.\n";
-					}
+				if (!userType) {
+					std::cout << "Sorry, we couldn't find you in the database.\n";
 				}
-				break;
 			}
-			case 0: { // Exit program
-				userType = 0;
-				do {
-					if (run_program != 0 && run_program != 1)
-						std::cout << "Please enter a valid input.\n\n";
-					std::cout << "You wish to exit?\n";
-					std::cout << "1: Return\n";
-					std::cout << "0: Exit\n";
-					//std::cin >> run_program;
-					inputStream >> run_program;
-					std::cout << std::endl;
-				} while (run_program != 0 && run_program != 1);
-				break;
-			}
-			default: { std::cout << "Please enter a valid choice.\n\n"; }
+			break;
+		}
+		case 0: { // Exit program
+			userType = 0;
+			do {
+				if (run_program != 0 && run_program != 1)
+					std::cout << "Please enter a valid input.\n\n";
+				std::cout << "You wish to exit?\n";
+				std::cout << "1: Return\n";
+				std::cout << "0: Exit\n";
+				//std::cin >> run_program;
+				inputStream >> run_program;
+				std::cout << std::endl;
+			} while (run_program != 0 && run_program != 1);
+			break;
+		}
+		default: { std::cout << "Please enter a valid choice.\n\n"; }
 		}
 		/*********************************************************/
 		if (run_program) {
