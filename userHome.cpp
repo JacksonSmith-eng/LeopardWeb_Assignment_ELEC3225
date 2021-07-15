@@ -7,9 +7,6 @@
 /////////////////////////////////////////////////////
 void studentHome(const char* dir, student_c* student) {
 
-	std::ifstream inputStream;
-	inputStream.open("The_Tests\\test_userHome_signInOut.txt");
-
 	int signedIn = 1;
 
 	while (signedIn) {
@@ -21,9 +18,7 @@ void studentHome(const char* dir, student_c* student) {
 		std::cout << "3: Display schedule\n";
 		std::cout << "4: Display all student info\n";
 		std::cout << "0: Sign out\n";
-		//std::cin >> choice;
-		inputStream >> choice;
-		//choice = 1; // * * * TEST * * *
+		std::cin >> choice;
 		std::cout << std::endl;
 
 		switch (choice) {
@@ -38,8 +33,7 @@ void studentHome(const char* dir, student_c* student) {
 					std::cout << "You wish to sign out?\n";
 					std::cout << "1: Stay signed in\n";
 					std::cout << "0: Sign out\n";
-					//std::cin >> signedIn;
-					inputStream >> signedIn;
+					std::cin >> signedIn;
 					std::cout << std::endl;
 				} while (signedIn != 0 && signedIn != 1);
 				break;
@@ -47,7 +41,6 @@ void studentHome(const char* dir, student_c* student) {
 			default: { std::cout << "Please enter a valid choice.\n\n"; }
 		}
 	}
-	inputStream.close();
 }
 
 
@@ -58,7 +51,7 @@ void studentHome(const char* dir, student_c* student) {
 void instructorHome(const char* dir, instructor_c* instructor) {
 
 	std::ifstream inputStream;
-	inputStream.open("The_Tests\\test_userHome_signInOut.txt");
+	inputStream.open("The_Tests\\test_instructor_printCourseRoster\\test_instructor_HOME_printCourseRoster.txt");
 
 	int signedIn = 1;
 
@@ -103,9 +96,6 @@ void instructorHome(const char* dir, instructor_c* instructor) {
 // * * * * * * * * * * ADMIN * * * * * * * * * * //
 ///////////////////////////////////////////////////
 void adminHome(const char* dir, const int& MAXSTUDENT, const int& MAXINSTRUCTOR, const int& MAXADMIN, student_c* signedInStudent, instructor_c* signedInInstructor, admin_c* admin, int& numStudent, int& numInstructor, int& numAdmin) {
-	
-	std::ifstream inputStream;
-	inputStream.open("The_Tests\\test_userHome_signInOut.txt");
 
 	int signedIn = 1;
 
@@ -121,8 +111,7 @@ void adminHome(const char* dir, const int& MAXSTUDENT, const int& MAXINSTRUCTOR,
 		std::cout << "6: Display courses\n";
 		std::cout << "7: Display all admin info\n";
 		std::cout << "0: Sign out\n";
-		//std::cin >> choice;
-		inputStream >> choice;
+		std::cin >> choice;
 		std::cout << std::endl;
 
 		switch (choice) {
@@ -140,8 +129,7 @@ void adminHome(const char* dir, const int& MAXSTUDENT, const int& MAXINSTRUCTOR,
 					std::cout << "You wish to sign out?\n";
 					std::cout << "1: Stay signed in\n";
 					std::cout << "0: Sign out\n";
-					//std::cin >> signedIn;
-					inputStream >> signedIn;
+					std::cin >> signedIn;
 					std::cout << std::endl;
 				} while (signedIn != 0 && signedIn != 1);
 				break;
@@ -149,5 +137,4 @@ void adminHome(const char* dir, const int& MAXSTUDENT, const int& MAXINSTRUCTOR,
 			default: { std::cout << "Please enter a valid choice.\n\n"; }
 		}
 	}
-	inputStream.close();
 }

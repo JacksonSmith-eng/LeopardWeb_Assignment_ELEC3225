@@ -290,6 +290,10 @@ void instructor_c::searchCourses(const char* dir) { /* https://www.quora.com/How
 }
 
 void instructor_c::printRosters(const char* dir) {
+	
+	std::ifstream inputStream;
+	inputStream.open("The_Tests\\test_instructor_printCourseRoster\\test_instructor_USERCPP_printCourseRoster.txt");
+	
 	int choice = 3;
 
 	while (choice) {
@@ -297,7 +301,8 @@ void instructor_c::printRosters(const char* dir) {
 		std::cout << "1: Print roster by CID\n";
 		std::cout << "2: Print all rosters\n";
 		std::cout << "0: Return to Home\n";
-		std::cin >> choice;
+		//std::cin >> choice;
+		inputStream >> choice;
 		std::cout << "\n";
 
 		switch (choice) {
@@ -309,9 +314,10 @@ void instructor_c::printRosters(const char* dir) {
 
 			do {
 				invalid = 0;
-				std::cin.ignore();
+				//std::cin.ignore();
 				std::cout << "Please enter the 4-digit course IDs separated by spaces: ";
-				getline(std::cin, input);
+				//getline(std::cin, input);
+				inputStream >> input;
 				std::cout << "\n";
 
 				std::istringstream iss(input);
@@ -348,6 +354,7 @@ void instructor_c::printRosters(const char* dir) {
 		}
 		}
 	}
+	inputStream.close();
 }
 
 void instructor_c::printAll() {
@@ -660,7 +667,8 @@ void admin_c::searchCourses(const char* dir) { /* https://www.quora.com/How-do-I
 }
 
 void admin_c::searchRosters(const char* dir) {
-		int choice = 3;
+	
+	int choice = 3;
 
 	while (choice) {
 		std::cout << " * * * Roster Search * * * \n";

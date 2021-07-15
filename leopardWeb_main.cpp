@@ -20,7 +20,7 @@ int main() {
 	/*********************************************************/
 
 	std::ifstream inputStream;
-	inputStream.open("The_Tests\\test_usersMain_signInOut.txt");
+	inputStream.open("The_Tests\\test_instructor_printCourseRoster\\test_instructor_MAIN_printCourseRoster.txt");
 	//inputStream.open("The_Tests\\test_admin_showInfo.txt");
 
 	std::ofstream outputStream;

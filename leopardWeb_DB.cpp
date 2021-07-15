@@ -1,4 +1,4 @@
-#include "user.h"
+ï»¿#include "user.h"
 
 // Function written by group
 extern int createDB(const char* s) {
@@ -645,7 +645,7 @@ extern int callback_printData(void* NotUsed, int argc, char** argv, char** azCol
 // Function written by group
 extern int callback_getData(void* data, int argc, char** argv, char** azColName) {
 	
-	if (argc == 0)    //nothing in the row; shouldn’t happen
+	if (argc == 0)    //nothing in the row; shouldnï¿½t happen
 		return -1;
 
 	auto& container = *static_cast<std::vector<std::string>*>(data);         //create vector
