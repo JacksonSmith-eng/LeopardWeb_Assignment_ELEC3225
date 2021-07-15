@@ -124,6 +124,9 @@ void student_c::searchCourses(const char* dir) { /* https://www.quora.com/How-do
 
 void student_c::addDropCourse(const char* dir) {
 
+	std::ifstream inputStream;
+	inputStream.open("The_Tests\\test_student_addDropCourse\\test_student_USERCPP_addDropCourse.txt");
+
 	int choice = 5, courseID = 0;
 	std::string str;
 
@@ -134,7 +137,8 @@ void student_c::addDropCourse(const char* dir) {
 		std::cout << "3: Add a course\n";
 		std::cout << "4: Drop a course\n";
 		std::cout << "0: Return to Home\n";
-		std::cin >> choice;
+		//std::cin >> choice;
+		inputStream >> choice;
 		std::cout << "\n";
 
 		switch (choice) {
@@ -149,7 +153,8 @@ void student_c::addDropCourse(const char* dir) {
 		case 3: {
 			do {
 				std::cout << "Please enter the 4-digit course ID: ";
-				std::cin >> courseID;
+				//std::cin >> courseID;
+				inputStream >> courseID;
 				std::cout << "\n";
 				str = std::to_string(courseID);
 				if (str.length() != 4)
@@ -163,7 +168,8 @@ void student_c::addDropCourse(const char* dir) {
 		case 4: {
 			do {
 				std::cout << "Please enter the 4-digit course ID: ";
-				std::cin >> courseID;
+				//std::cin >> courseID;
+				inputStream >> courseID;
 				std::cout << "\n";
 				str = std::to_string(courseID);
 				if (str.length() != 4)
@@ -181,6 +187,7 @@ void student_c::addDropCourse(const char* dir) {
 		}
 		}
 	}
+	inputStream.close();
 }
 
 void student_c::printSchedule(const char* dir) {
