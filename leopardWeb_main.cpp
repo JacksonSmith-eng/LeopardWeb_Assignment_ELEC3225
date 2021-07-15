@@ -20,12 +20,12 @@ int main() {
 	/*********************************************************/
 
 	std::ifstream inputStream;
-	inputStream.open("The_Tests\\test_usersMain_signInOut.txt");
+	inputStream.open("C:\\Users\\leung\\Downloads\\LeopardWeb_Assignment_ELEC3225-test_admin_insertRemoveCourse\\LeopardWeb_Assignment_ELEC3225-test_admin_insertRemoveCourse\\test\\test_admin_mainAddDrop.txt");
 	//inputStream.open("The_Tests\\test_admin_showInfo.txt");
 
 	std::ofstream outputStream;
 
-	const char* dir = "C:\\Users\\smithj42\\Documents\\2020-2021\\Applied_Programming_Concepts\\Semester_Assignment\\LeopardWeb_Assignment\\LeopardWeb_Assignment_ELEC3225\\The_Database\\leopardWeb.db";
+	const char* dir = "C:\\Users\\leung\\Downloads\\LeopardWeb_Assignment_ELEC3225-test_admin_insertRemoveCourse\\LeopardWeb_Assignment_ELEC3225-test_admin_insertRemoveCourse\\leopardWeb.db";
 	sqlite3* DB;
 
 	int userID;

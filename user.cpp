@@ -385,7 +385,8 @@ std::string admin_c::getTitle() { return title; }
 std::string admin_c::getOffice() { return office; }
 
 void admin_c::addRemoveCourses(const char* dir) {
-
+	std::ifstream inputStream;
+	inputStream.open("C:\\Users\\leung\\Downloads\\LeopardWeb_Assignment_ELEC3225-test_admin_insertRemoveCourse\\LeopardWeb_Assignment_ELEC3225-test_admin_insertRemoveCourse\\test\\test_admin_AddDropCourse.txt");
 	int choice = 3, courseID = 0, instructorID = 0, credits = 0, year = 0;
 	std::string str, courseName, department, time, daysOfWeek, semester;
 
@@ -394,7 +395,7 @@ void admin_c::addRemoveCourses(const char* dir) {
 		std::cout << "1: Insert a course\n";
 		std::cout << "2: Remove a course\n";
 		std::cout << "0: Return to Home\n";
-		std::cin >> choice;
+		inputStream >> choice;
 		std::cout << "\n";
 
 		switch (choice) {
@@ -402,7 +403,7 @@ void admin_c::addRemoveCourses(const char* dir) {
 			bool invalidID, foundUID = 0;
 			do {
 				std::cout << "Please enter the 4-digit course ID: ";
-				std::cin >> courseID;
+				inputStream >> courseID;
 				str = std::to_string(courseID);
 				invalidID = str.length() != 4 || courseID < 4000 || courseID > 4999;
 				if (invalidID)
@@ -414,7 +415,7 @@ void admin_c::addRemoveCourses(const char* dir) {
 			else {
 				do {
 					std::cout << "Please enter the 4-digit instructor ID: ";
-					std::cin >> instructorID;
+					inputStream >> instructorID;
 					str = std::to_string(instructorID);
 					invalidID = str.length() != 4 || instructorID < 2000 || instructorID > 2999;
 					if (invalidID)
@@ -425,21 +426,25 @@ void admin_c::addRemoveCourses(const char* dir) {
 					std::cout << "This user does not exist in the database.\n";
 				else {
 					std::cout << "Please enter the course name: ";
-					std::cin.ignore();
-					std::getline(std::cin, courseName);
+					//std::cin.ignore();
+					//std::getline(std::cin, courseName);
+					inputStream >> courseName;
 					std::cout << "Please enter the department: ";
-					std::getline(std::cin, department);
+					//std::getline(std::cin, department);
+					inputStream >> department;
 					std::cout << "Please enter the time: ";
-					std::getline(std::cin, time);
+					//std::getline(std::cin, time);
+					inputStream >> time;
 					std::cout << "Please enter the days of the week: ";
-					std::getline(std::cin, daysOfWeek);
+					//std::getline(std::cin, daysOfWeek);
+					inputStream >> daysOfWeek;
 					std::cout << "Please enter the semester: ";
-					std::cin >> semester;
+					inputStream >> semester;
 					std::cout << "Please enter the year: ";
-					std::cin >> year;
+					inputStream >> year;
 					std::cout << "Please enter the credits: ";
-					std::cin >> credits;
-					std::cin.ignore();
+					inputStream >> credits;
+					//std::cin.ignore();
 					std::cout << "\n";
 
 					insertCourse(dir, courseID, instructorID, courseName, department, time, daysOfWeek, semester, year, credits);
@@ -452,7 +457,7 @@ void admin_c::addRemoveCourses(const char* dir) {
 			bool invalidID;
 			do {
 				std::cout << "Please enter the 4-digit course ID: ";
-				std::cin >> courseID;
+				inputStream >> courseID;
 				str = std::to_string(courseID);
 				invalidID = str.length() != 4 || courseID < 4000 || courseID > 4999;
 				if (invalidID)
