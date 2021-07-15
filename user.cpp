@@ -62,6 +62,9 @@ float student_c::getGPA() { return GPA; }
 
 void student_c::searchCourses(const char* dir) { /* https://www.quora.com/How-do-I-split-a-string-by-space-into-an-array-in-c++ */
 
+	std::ifstream inputStream;
+	inputStream.open("C:\\Users\\pasquelr\\Desktop\\LeopardWebAssignment\\The_Tests\\TestUserSignInOut\\Test_user_SearchCoursebyCID.txt");
+
 	int choice = 3;
 
 	while (choice) {
@@ -69,7 +72,8 @@ void student_c::searchCourses(const char* dir) { /* https://www.quora.com/How-do
 		std::cout << "1: Search courses by CID\n";
 		std::cout << "2: Show all courses\n";
 		std::cout << "0: Return to Home\n";
-		std::cin >> choice;
+		//std::cin >> choice;
+		inputStream >> choice;
 		std::cout << "\n";
 
 		switch (choice) {
@@ -81,9 +85,11 @@ void student_c::searchCourses(const char* dir) { /* https://www.quora.com/How-do
 
 			do {
 				invalid = 0;
-				std::cin.ignore();
+				inputStream.ignore();
+				//std::cin.ignore();
 				std::cout << "Please enter the 4-digit course IDs separated by spaces: ";
-				getline(std::cin, input);
+				//getline(std::cin, input);
+				getline(inputStream, input);
 				std::cout << "\n";
 
 				std::istringstream iss(input);
@@ -231,12 +237,17 @@ void instructor_c::searchCourses(const char* dir) { /* https://www.quora.com/How
 
 	int choice = 3;
 
+	std::ifstream inputStream;
+	inputStream.open("C:\\Users\\pasquelr\\Desktop\\LeopardWebAssignment\\The_Tests\\TestUserSignInOut\\Test_user_SearchCoursebyCID.txt");
+
+
 	while (choice) {
 		std::cout << " * * * Course Search * * * \n";
 		std::cout << "1: Search courses by CID\n";
 		std::cout << "2: Show all courses\n";
 		std::cout << "0: Return to Home\n";
-		std::cin >> choice;
+		//std::cin >> choice;
+		inputStream >> choice;
 		std::cout << "\n";
 
 		switch (choice) {
@@ -248,9 +259,11 @@ void instructor_c::searchCourses(const char* dir) { /* https://www.quora.com/How
 
 			do {
 				invalid = 0;
-				std::cin.ignore();
+				inputStream.ignore();
+				//std::cin.ignore();
 				std::cout << "Please enter the 4-digit course IDs separated by spaces: ";
-				getline(std::cin, input);
+				getline(inputStream, input);
+				//getline(std::cin, input);
 				std::cout << "\n";
 
 				std::istringstream iss(input);
@@ -531,11 +544,11 @@ void admin_c::addRemoveUsers(const char* dir, const int& MAXSTUDENT, const int& 
 		}
 	}
 }
-			
+
 
 void admin_c::addDropStudents(const char* dir) {
 
-	int choice = 3, courseID = 0, userID =0;
+	int choice = 3, courseID = 0, userID = 0;
 	std::string str;
 
 	while (choice) {
@@ -590,14 +603,17 @@ void admin_c::addDropStudents(const char* dir) {
 		case 0: {
 			break;
 		}
-		default:{
+		default: {
 			std::cout << "\nPlease enter valid choice.\n\n";
 		}
-		} 
+		}
 	}
 }
 
 void admin_c::searchCourses(const char* dir) { /* https://www.quora.com/How-do-I-split-a-string-by-space-into-an-array-in-c++ */
+
+	std::ifstream inputStream;
+	inputStream.open("C:\\Users\\pasquelr\\Desktop\\LeopardWebAssignment\\The_Tests\\TestUserSignInOut\\Test_user_SearchCoursebyCID.txt");
 
 	int choice = 3;
 
@@ -606,7 +622,8 @@ void admin_c::searchCourses(const char* dir) { /* https://www.quora.com/How-do-I
 		std::cout << "1: Search courses by CID\n";
 		std::cout << "2: Show all courses\n";
 		std::cout << "0: Return to Home\n";
-		std::cin >> choice;
+		inputStream >> choice;
+		//std::cin >> choice;
 		std::cout << "\n";
 
 		switch (choice) {
@@ -618,9 +635,11 @@ void admin_c::searchCourses(const char* dir) { /* https://www.quora.com/How-do-I
 
 			do {
 				invalid = 0;
-				std::cin.ignore();
+				inputStream.ignore();
+				//std::cin.ignore();
 				std::cout << "Please enter the 4-digit course IDs separated by spaces: ";
-				getline(std::cin, input);
+				//getline(std::cin, input);
+				getline(inputStream, input);
 				std::cout << "\n";
 
 				std::istringstream iss(input);
@@ -660,7 +679,7 @@ void admin_c::searchCourses(const char* dir) { /* https://www.quora.com/How-do-I
 }
 
 void admin_c::searchRosters(const char* dir) {
-		int choice = 3;
+	int choice = 3;
 
 	while (choice) {
 		std::cout << " * * * Roster Search * * * \n";
