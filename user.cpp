@@ -227,6 +227,8 @@ std::string instructor_c::getTitle() { return title; }
 std::string instructor_c::getDepartment() { return department; }
 std::string instructor_c::getDegree() { return degree; }
 
+// Instructor functions written by Ryan Pasquel
+
 void instructor_c::searchCourses(const char* dir) { /* https://www.quora.com/How-do-I-split-a-string-by-space-into-an-array-in-c++ */
 
 	int choice = 3;
@@ -531,11 +533,11 @@ void admin_c::addRemoveUsers(const char* dir, const int& MAXSTUDENT, const int& 
 		}
 	}
 }
-			
+
 
 void admin_c::addDropStudents(const char* dir) {
 
-	int choice = 3, courseID = 0, userID =0;
+	int choice = 3, courseID = 0, userID = 0;
 	std::string str;
 
 	while (choice) {
@@ -590,10 +592,10 @@ void admin_c::addDropStudents(const char* dir) {
 		case 0: {
 			break;
 		}
-		default:{
+		default: {
 			std::cout << "\nPlease enter valid choice.\n\n";
 		}
-		} 
+		}
 	}
 }
 
@@ -660,7 +662,7 @@ void admin_c::searchCourses(const char* dir) { /* https://www.quora.com/How-do-I
 }
 
 void admin_c::searchRosters(const char* dir) {
-		int choice = 3;
+	int choice = 3;
 
 	while (choice) {
 		std::cout << " * * * Roster Search * * * \n";
