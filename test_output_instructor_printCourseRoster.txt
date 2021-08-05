@@ -1,0 +1,153 @@
+Records Created Successfully!
+
+ * * * LeopardWeb * * *
+1: Sign in
+0: End program
+
+Please enter your 4-digit user ID:
+ * * * Instructor Home * * *
+1: Search courses
+2: Display Course Roster
+3: Display all instructor info
+0: Sign out
+
+ * * * Roster Search * * *
+1: Print roster by CID
+2: Print all rosters
+0: Return to Home
+
+Please enter the 4-digit course IDs separated by spaces:
+
+SID: 1000
+NAME: Jackson
+SURNAME: Smith
+
+SID: 1001
+NAME: Johnson
+SURNAME: Goldsmith
+
+SID: 1002
+NAME: Jayden
+SURNAME: Locksmith
+
+SID: 1003
+NAME: Jared
+SURNAME: Smitty
+
+SID: 1004
+NAME: Jaxson
+SURNAME: Simmons
+
+ * * * Roster Search * * *
+1: Print roster by CID
+2: Print all rosters
+0: Return to Home
+
+CID: 4000
+SID: 1000
+NAME: Jackson
+SURNAME: Smith
+
+CID: 4000
+SID: 1001
+NAME: Johnson
+SURNAME: Goldsmith
+
+CID: 4000
+SID: 1003
+NAME: Jared
+SURNAME: Smitty
+
+CID: 4001
+SID: 1000
+NAME: Jackson
+SURNAME: Smith
+
+CID: 4001
+SID: 1001
+NAME: Johnson
+SURNAME: Goldsmith
+
+CID: 4001
+SID: 1002
+NAME: Jayden
+SURNAME: Locksmith
+
+CID: 4001
+SID: 1003
+NAME: Jared
+SURNAME: Smitty
+
+CID: 4002
+SID: 1000
+NAME: Jackson
+SURNAME: Smith
+
+CID: 4002
+SID: 1001
+NAME: Johnson
+SURNAME: Goldsmith
+
+CID: 4002
+SID: 1003
+NAME: Jared
+SURNAME: Smitty
+
+CID: 4003
+SID: 1000
+NAME: Jackson
+SURNAME: Smith
+
+CID: 4003
+SID: 1001
+NAME: Johnson
+SURNAME: Goldsmith
+
+CID: 4003
+SID: 1002
+NAME: Jayden
+SURNAME: Locksmith
+
+CID: 4004
+SID: 1000
+NAME: Jackson
+SURNAME: Smith
+
+CID: 4004
+SID: 1001
+NAME: Johnson
+SURNAME: Goldsmith
+
+CID: 4004
+SID: 1003
+NAME: Jared
+SURNAME: Smitty
+
+ * * * Roster Search * * *
+1: Print roster by CID
+2: Print all rosters
+0: Return to Home
+
+ * * * Instructor Home * * *
+1: Search courses
+2: Display Course Roster
+3: Display all instructor info
+0: Sign out
+
+You wish to sign out?
+1: Stay signed in
+0: Sign out
+
+ * * * LeopardWeb * * *
+1: Sign in
+0: End program
+
+You wish to exit?
+1: Return
+0: Exit
+
+ * * * EXITING * * *
+
+C:\Users\smithj42\Documents\2020-2021\Applied_Programming_Concepts\Semester_Assignment\LeopardWeb_Assignment\LeopardWeb_Assignment_ELEC3225\Debug\LeopardWeb_Assignment_ELEC3225.exe (process 17412) exited with code 0.
+To automatically close the console when debugging stops, enable Tools->Options->Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .

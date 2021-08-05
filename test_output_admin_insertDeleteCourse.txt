@@ -1,0 +1,180 @@
+ * * * LeopardWeb * * *
+1: Sign in
+0: End program
+
+Please enter your 4-digit user ID:
+ * * * Admin Home * * *
+1: Add/Remove courses
+2: Add/Remove users
+3: Add/Drop students
+4: Search for courses
+5: Search for rosters
+6: Display courses
+7: Display all admin info
+0: Sign out
+
+CID: 4000
+IID: 2000
+TITLE: Applied Programming Concepts
+DEPARTMENT: ELEC
+TIME: 8-9:50am
+DAYSOFWEEK: M T R
+SEMESTER: Summer
+YEAR: 2021
+CREDITS: 4
+
+CID: 4001
+IID: 2001
+TITLE: Signals and Systems
+DEPARTMENT: ELEC
+TIME: 10-11:50am
+DAYSOFWEEK: T R
+SEMESTER: Summer
+YEAR: 2021
+CREDITS: 3
+
+CID: 4002
+IID: 2000
+TITLE: Computer Networks for Engineers
+DEPARTMENT: ELEC
+TIME: 8-9:15am
+DAYSOFWEEK: W F
+SEMESTER: Summer
+YEAR: 2021
+CREDITS: 4
+
+CID: 4003
+IID: 2001
+TITLE: Advanced Digital Circuit Design
+DEPARTMENT: ELEC
+TIME: 12:30-1:50pm
+DAYSOFWEEK: W F
+SEMESTER: Summer
+YEAR: 2021
+CREDITS: 4
+
+CID: 4004
+IID: 2001
+TITLE: Hardware Security
+DEPARTMENT: ELEC
+TIME: 1-2:50pm
+DAYSOFWEEK: T R
+SEMESTER: Summer
+YEAR: 2021
+CREDITS: 3
+
+ * * * Admin Home * * *
+1: Add/Remove courses
+2: Add/Remove users
+3: Add/Drop students
+4: Search for courses
+5: Search for rosters
+6: Display courses
+7: Display all admin info
+0: Sign out
+
+ * * * Add/Drop Course * * *
+1: Insert a course
+2: Remove a course
+0: Return to Home
+
+Please enter the 4-digit course ID:  * * * Add/Drop Course * * *
+1: Insert a course
+2: Remove a course
+0: Return to Home
+
+Please enter the 4-digit course ID: Please enter the 4-digit instructor ID: Please enter the course name: Please enter the department: Please enter the time: Please enter the days of the week: Please enter the semester: Please enter the year: Please enter the credits:
+Records Created Successfully!
+
+ * * * Add/Drop Course * * *
+1: Insert a course
+2: Remove a course
+0: Return to Home
+
+ * * * Admin Home * * *
+1: Add/Remove courses
+2: Add/Remove users
+3: Add/Drop students
+4: Search for courses
+5: Search for rosters
+6: Display courses
+7: Display all admin info
+0: Sign out
+
+CID: 4000
+IID: 2000
+TITLE: Applied Programming Concepts
+DEPARTMENT: ELEC
+TIME: 8-9:50am
+DAYSOFWEEK: M T R
+SEMESTER: Summer
+YEAR: 2021
+CREDITS: 4
+
+CID: 4002
+IID: 2000
+TITLE: Computer Networks for Engineers
+DEPARTMENT: ELEC
+TIME: 8-9:15am
+DAYSOFWEEK: W F
+SEMESTER: Summer
+YEAR: 2021
+CREDITS: 4
+
+CID: 4003
+IID: 2001
+TITLE: Advanced Digital Circuit Design
+DEPARTMENT: ELEC
+TIME: 12:30-1:50pm
+DAYSOFWEEK: W F
+SEMESTER: Summer
+YEAR: 2021
+CREDITS: 4
+
+CID: 4004
+IID: 2001
+TITLE: Hardware Security
+DEPARTMENT: ELEC
+TIME: 1-2:50pm
+DAYSOFWEEK: T R
+SEMESTER: Summer
+YEAR: 2021
+CREDITS: 3
+
+CID: 4005
+IID: 2000
+TITLE:
+DEPARTMENT: network
+TIME: theory
+DAYSOFWEEK:
+SEMESTER: electrical
+YEAR: 12
+CREDITS: -1
+
+ * * * Admin Home * * *
+1: Add/Remove courses
+2: Add/Remove users
+3: Add/Drop students
+4: Search for courses
+5: Search for rosters
+6: Display courses
+7: Display all admin info
+0: Sign out
+
+You wish to sign out?
+1: Stay signed in
+0: Sign out
+
+ * * * LeopardWeb * * *
+1: Sign in
+0: End program
+
+You wish to exit?
+1: Return
+0: Exit
+
+ * * * EXITING * * *
+
+C:\Users\smithj42\Documents\2020-2021\Applied_Programming_Concepts\Semester_Assignment\LeopardWeb_Assignment\LeopardWeb_Assignment_ELEC3225\Debug\LeopardWeb_Assignment_ELEC3225.exe (process 22428) exited with code 0.
+To automatically close the console when debugging stops, enable Tools->Options->Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .
