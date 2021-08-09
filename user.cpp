@@ -476,14 +476,13 @@ void admin_c::addRemoveCourses(const char* dir) {
 
 void admin_c::addRemoveUsers(const char* dir, const int& MAXSTUDENT, const int& MAXINSTRUCTOR, const int& MAXADMIN, student_c* signedInStudent, instructor_c* signedInInstructor, admin_c* signedInAdmin, int& numStudent, int& numInstructor, int& numAdmin) {
 
-	int userType = 0, choice = 4;
+	int userType = 0, choice = 4,userID = 0;
+	std::string str;
 
 	while (choice) {
-
 		std::cout << " * * * Add/Drop User * * *\n";
 		std::cout << "Search for a user\n";
 		std::cout << "1: Add a user\n";
-		std::cout << "2: Drop a user\n";
 		std::cout << "0: Return\n";
 		std::cin >> choice;
 		std::cout << "\n";

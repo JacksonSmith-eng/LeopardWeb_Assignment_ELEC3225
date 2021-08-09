@@ -99,7 +99,7 @@ void adminHome(const char* dir, const int& MAXSTUDENT, const int& MAXINSTRUCTOR,
 
 		std::cout << " * * * Admin Home * * *\n";
 		std::cout << "1: Add/Remove courses\n";
-		std::cout << "2: Add/Remove users\n";
+		std::cout << "2: Add users\n";
 		std::cout << "3: Add/Drop students\n";
 		std::cout << "4: Search for courses\n";
 		std::cout << "5: Search for rosters\n";

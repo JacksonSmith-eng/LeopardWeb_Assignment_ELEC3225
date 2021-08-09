@@ -232,17 +232,37 @@ extern int loadInData(const char* s, int& numStudent, int& numInstructor, int& n
 		"INSERT INTO STUDENT VALUES(1002, 'Jayden', 'Locksmith', 'BSCE', 2010, 3.21);"
 		"INSERT INTO STUDENT VALUES(1003, 'Jared', 'Smitty', 'BSCE', 2011, 3.25);"
 		"INSERT INTO STUDENT VALUES(1004, 'Jaxson', 'Simmons', 'BSCS', 2018, 3.90);"
+		"INSERT INTO STUDENT VALUES(1005, 'Kate', 'Smith', 'BSCO', 2023, 2.95);"
+		"INSERT INTO STUDENT VALUES(1006, 'Mickey', 'Mouse', 'BSEE', 2024, 4.00);"
+		"INSERT INTO STUDENT VALUES(1007, 'Goofy', 'Danger', 'BSCO', 2010, 3.25);"
+		"INSERT INTO STUDENT VALUES(1008, 'Pluto', 'Yan', 'BSCE', 2015, 2.25);"
+		"INSERT INTO STUDENT VALUES(1009, 'Bambi', 'Gate', 'BSCS', 2020, 3.70);"
+		"INSERT INTO STUDENT VALUES(1010, 'Kirby', 'Smith', 'BSCO', 2021, 3.99);"
 
 		"INSERT INTO INSTRUCTOR VALUES (2000, 'Ryan', 'Pasquel', 'Professor', 'ENG', 'PHD');"
 		"INSERT INTO INSTRUCTOR VALUES (2001, 'Gary', 'Leung', 'Professor', 'ENG', 'PHD');"
+		"INSERT INTO INSTRUCTOR VALUES (2002, 'Jane', 'Doe', 'Professor', 'PHY', 'PHD');"
+		"INSERT INTO INSTRUCTOR VALUES (2003, 'Jack', 'Ripper', 'Professor', 'ENGL', 'PHD');"
+		"INSERT INTO INSTRUCTOR VALUES (2004, 'Paul', 'Chan', 'Professor', 'ENG', 'PHD');"
+		"INSERT INTO INSTRUCTOR VALUES (2005, 'Jerry', 'Lu', 'Professor', 'ENG', 'PHD');"
+		"INSERT INTO INSTRUCTOR VALUES (2006, 'Trent', 'Forest', 'Professor', 'ENG', 'PHD');"
+		"INSERT INTO INSTRUCTOR VALUES (2007, 'Will', 'Strange', 'Professor', 'ENG', 'PHD');"
+		"INSERT INTO INSTRUCTOR VALUES (2008, 'Dustin', 'Potter', 'Professor', 'ENG', 'PHD');"
+		"INSERT INTO INSTRUCTOR VALUES (2009, 'Mary', 'Black', 'Professor', 'ENG', 'PHD');"
+		
 
 		"INSERT INTO ADMIN VALUES(3000, 'Frank', 'Frankie', 'VP', 'Dobbs 202');"
 
 		"INSERT INTO COURSE VALUES(4000, 2000, 'Applied Programming Concepts', 'ELEC', '8-9:50am', 'M T R', 'Summer', 2021, 4);"
 		"INSERT INTO COURSE VALUES(4001, 2001, 'Signals and Systems', 'ELEC', '10-11:50am', 'T R', 'Summer', 2021, 3);"
-		"INSERT INTO COURSE VALUES(4002, 2000, 'Computer Networks for Engineers', 'ELEC', '8-9:15am', 'W F', 'Summer', 2021, 4);"
-		"INSERT INTO COURSE VALUES(4003, 2001, 'Advanced Digital Circuit Design', 'ELEC', '12:30-1:50pm', 'W F', 'Summer', 2021, 4);"
-		"INSERT INTO COURSE VALUES(4004, 2001, 'Hardware Security', 'ELEC', '1-2:50pm', 'T R', 'Summer', 2021, 3);"
+		"INSERT INTO COURSE VALUES(4002, 2007, 'Computer Networks for Engineers', 'ELEC', '8-9:15am', 'W F', 'Summer', 2021, 4);"
+		"INSERT INTO COURSE VALUES(4003, 2009, 'Advanced Digital Circuit Design', 'ELEC', '12:30-1:50pm', 'W F', 'Summer', 2021, 4);"
+		"INSERT INTO COURSE VALUES(4004, 2008, 'Digital Logic', 'ELEC', '12:30-2:50', 'W T F', 'Fall', 2021, 4);"
+		"INSERT INTO COURSE VALUES(4005, 2005, 'Hardware Security', 'ELEC', '1-2:50pm', 'T R', 'Summer', 2021, 3);"
+		"INSERT INTO COURSE VALUES(4006, 2004, 'Object-Oriented Program', 'ELEC', '2-3:50', 'M w', 'Fall', 2021, 4);"
+		"INSERT INTO COURSE VALUES(4007, 2006, 'Network Theory', 'ELEC', '8-8:50:', 'M T R', 'Spring', 2021, 4);"
+		"INSERT INTO COURSE VALUES(4008, 2003, 'Engineering Physics', 'PHY', '12:30-1:50pm', 'W F', 'Spring', 2021, 4);"
+		"INSERT INTO COURSE VALUES(4009, 2002, 'English', 'ENGL', '1-2:50pm', 'T R', 'Fall', 2021, 4);"
 
 		"INSERT INTO ROSTER VALUES(1000, 4000);"
 		"INSERT INTO ROSTER VALUES(1000, 4001);"
@@ -379,6 +399,7 @@ extern int insertUser(const char* s, int userID, std::string firstName, std::str
 
 	return 0;
 }
+
 
 extern int checkExistingUID(const char* s, int userID, bool& foundUID) {
 	

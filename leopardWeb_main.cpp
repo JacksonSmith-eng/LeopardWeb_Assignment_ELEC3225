@@ -24,7 +24,7 @@ int main() {
 
 	std::ofstream outputStream;
 
-	const char* dir = "C:\\Users\\smithj42\\Documents\\2020-2021\\Applied_Programming_Concepts\\Semester_Assignment\\LeopardWeb_Assignment\\LeopardWeb_Assignment_ELEC3225\\The_Database\\leopardWeb.db";
+	const char* dir = "C:\\Users\\leung\\Downloads\\LeopardWeb_Assignment_ELEC3225-master\\LeopardWeb_Assignment_ELEC3225-master\\leopardWeb.db";
 	sqlite3* DB;
 
 	int userID;
@@ -61,16 +61,14 @@ int main() {
 		std::cout << " * * * LeopardWeb * * *\n"; // Homepage	
 		std::cout << "1: Sign in\n";
 		std::cout << "0: End program\n";
-		//std::cin >> run_program;
-		inputStream >> run_program;
+		std::cin >> run_program;
 		std::cout << "\n";
 		switch (run_program) {
 			case 1: { // Sign into account
 				std::string str;
 				do {
 					std::cout << "Please enter your 4-digit user ID: ";
-					//std::cin >> userID;
-					inputStream >> userID;
+					std::cin >> userID;
 					std::cout << "\n";
 					str = std::to_string(userID);
 					if (str.length() != 4)
